@@ -1,9 +1,20 @@
 extends Control
 @onready var eyeball_left: Panel = %eyeball_left
 @onready var eyeball_right: Panel = %eyeball_right
+@onready var nav_mesh: Polygon2D = $nav_mesh
+
+@export var is_hidden:bool = false
+
+func _ready() -> void:
+	if is_hidden:
+		modulate.a = 0
 
 func _physics_process(delta: float) -> void:
-	if data.holding_fruit:
+	
+	if is_hidden and nav_mesh:
+		nav_mesh.queue_free()
+	
+	if data.holding_fruit and is_hidden == false:
 		
 		var look_scale = 3
 		var offset = Vector2(4, 7)

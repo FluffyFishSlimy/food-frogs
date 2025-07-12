@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://qvoskuuxn0kd"]
+
+[ext_resource type="Script" uid="uid://dq3bqefbrxsvk" path="res://scenes/flag.gd" id="1_32e5v"]
+[ext_resource type="Texture2D" uid="uid://cvl17lfqkijue" path="res://assets/flag.png" id="1_76ss4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76ss4"]
+bg_color = Color(0.214844, 0.214844, 0.214844, 0.690196)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[node name="flag" type="Node2D"]
+script = ExtResource("1_32e5v")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -45.0
+offset_top = 21.0
+offset_right = -20.0
+offset_bottom = 46.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_76ss4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_76ss4")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-6, -7)

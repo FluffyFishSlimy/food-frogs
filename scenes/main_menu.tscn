@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqee3y63gjrl3"]
+[gd_scene load_steps=17 format=3 uid="uid://dqee3y63gjrl3"]
 
 [ext_resource type="Shader" uid="uid://dyxgo12ctlf7c" path="res://assets/scroll.gdshader" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://47knc0g2a078" path="res://scenes/main_menu.gd" id="1_wu84c"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ci1tr875gml4b" path="res://assets/DynaPuff/DynaPuff-Bold.ttf" id="3_wu84c"]
 [ext_resource type="Theme" uid="uid://cb266ecfib6xp" path="res://assets/main_theme.tres" id="5_8ln24"]
 [ext_resource type="Texture2D" uid="uid://hdt2n0myxe8f" path="res://assets/squigly.png" id="6_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://b68apv0173h4i" path="res://scenes/frog.tscn" id="7_oa1go"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wu84c"]
 shader = ExtResource("1_ekxnf")
@@ -57,21 +58,10 @@ _data = {
 &"strech": SubResource("Animation_8ln24")
 }
 
-[sub_resource type="Animation" id="Animation_oa1go"]
-resource_name = "close"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(0, -800), Vector2(0, -7)]
-}
+[sub_resource type="LabelSettings" id="LabelSettings_oa1go"]
+font = ExtResource("3_wu84c")
+font_size = 25
+font_color = Color(0.521569, 0.658824, 0.470588, 1)
 
 [sub_resource type="Animation" id="Animation_tbmy8"]
 length = 0.001
@@ -86,6 +76,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -932)]
+}
+
+[sub_resource type="Animation" id="Animation_oa1go"]
+resource_name = "close"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, -800), Vector2(0, -7)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jk1qb"]
@@ -196,8 +202,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -800.0
-offset_bottom = -740.0
+offset_top = -932.0
+offset_bottom = -872.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.784314, 0.913725, 0.72549, 1)
@@ -219,6 +225,37 @@ grow_vertical = 2
 mouse_filter = 0
 texture = ExtResource("6_rtw2f")
 stretch_mode = 1
+
+[node name="Frog" parent="transition" instance=ExtResource("7_oa1go")]
+modulate = Color(0.707568, 0.894531, 0.63945, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -75.0
+offset_right = 40.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="loading" type="Label" parent="transition"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.5
+offset_top = 33.0
+offset_right = 60.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Loading..."
+label_settings = SubResource("LabelSettings_oa1go")
 
 [node name="transition_animation" type="AnimationPlayer" parent="transition"]
 libraries = {
