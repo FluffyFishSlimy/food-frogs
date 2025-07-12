@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://xuieqplta6f4"]
+
+[ext_resource type="Script" uid="uid://co0bsmgra58hb" path="res://scenes/sound_manager.gd" id="1_gbdfy"]
+[ext_resource type="AudioStream" uid="uid://5yxfh5vwol2k" path="res://assets/sfx/button_hover.wav" id="2_shlr6"]
+[ext_resource type="AudioStream" uid="uid://dpj6mqhpgpbd7" path="res://assets/sfx/buton_click.mp3" id="3_shlr6"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_gbdfy")
+
+[node name="button_hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_shlr6")
+max_polyphony = 10
+bus = &"SFX"
+
+[node name="button_press" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_shlr6")
+volume_db = -15.0
+bus = &"SFX"

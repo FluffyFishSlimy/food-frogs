@@ -1,0 +1,230 @@
+[gd_scene load_steps=15 format=3 uid="uid://dqee3y63gjrl3"]
+
+[ext_resource type="Shader" uid="uid://dyxgo12ctlf7c" path="res://assets/scroll.gdshader" id="1_ekxnf"]
+[ext_resource type="Script" uid="uid://47knc0g2a078" path="res://scenes/main_menu.gd" id="1_wu84c"]
+[ext_resource type="Texture2D" uid="uid://c66kc221rq2yy" path="res://assets/frog_icon_green.png" id="2_bqqt6"]
+[ext_resource type="FontFile" uid="uid://ci1tr875gml4b" path="res://assets/DynaPuff/DynaPuff-Bold.ttf" id="3_wu84c"]
+[ext_resource type="Theme" uid="uid://cb266ecfib6xp" path="res://assets/main_theme.tres" id="5_8ln24"]
+[ext_resource type="Texture2D" uid="uid://hdt2n0myxe8f" path="res://assets/squigly.png" id="6_rtw2f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wu84c"]
+shader = ExtResource("1_ekxnf")
+shader_parameter/motion = Vector2(-10, 10)
+shader_parameter/scale = 0.2
+shader_parameter/offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqqt6"]
+font = ExtResource("3_wu84c")
+font_size = 115
+font_color = Color(0.236816, 0.757813, 0, 1)
+outline_size = 40
+
+[sub_resource type="Animation" id="Animation_rtw2f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("title:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8ln24"]
+resource_name = "strech"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("title:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oa1go"]
+_data = {
+&"RESET": SubResource("Animation_rtw2f"),
+&"strech": SubResource("Animation_8ln24")
+}
+
+[sub_resource type="Animation" id="Animation_oa1go"]
+resource_name = "close"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, -800), Vector2(0, -7)]
+}
+
+[sub_resource type="Animation" id="Animation_tbmy8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -932)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jk1qb"]
+_data = {
+&"RESET": SubResource("Animation_tbmy8"),
+&"close": SubResource("Animation_oa1go")
+}
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_8ln24")
+script = ExtResource("1_wu84c")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.783654, 0.914063, 0.724823, 1)
+
+[node name="scoll icons" type="TextureRect" parent="bg"]
+modulate = Color(0.565174, 0.910156, 0.405304, 0.466667)
+texture_repeat = 2
+material = SubResource("ShaderMaterial_wu84c")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bqqt6")
+
+[node name="title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 107.0
+offset_right = 698.0
+offset_bottom = 246.0
+pivot_offset = Vector2(320, 69)
+mouse_filter = 0
+text = "Fruit Frogs"
+label_settings = SubResource("LabelSettings_bqqt6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="title"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_oa1go")
+}
+autoplay = "strech"
+
+[node name="play" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 65.0
+offset_top = 282.0
+offset_right = 520.0
+offset_bottom = 349.0
+size_flags_vertical = 3
+focus_mode = 0
+text = "Play"
+
+[node name="settings" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 65.0
+offset_top = 364.0
+offset_right = 520.0
+offset_bottom = 431.0
+size_flags_vertical = 3
+focus_mode = 0
+text = "Settings"
+
+[node name="credits" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 65.0
+offset_top = 445.0
+offset_right = 520.0
+offset_bottom = 512.0
+size_flags_vertical = 3
+focus_mode = 0
+text = "Credits"
+
+[node name="quit" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 65.0
+offset_top = 528.0
+offset_right = 520.0
+offset_bottom = 596.0
+size_flags_vertical = 3
+focus_mode = 0
+text = "Quit"
+
+[node name="button_rotate" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[node name="transition" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -800.0
+offset_bottom = -740.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.784314, 0.913725, 0.72549, 1)
+
+[node name="TextureRect" type="TextureRect" parent="transition"]
+modulate = Color(0.784314, 0.913725, 0.72549, 1)
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = 342.0
+offset_right = -1.0
+offset_bottom = 442.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("6_rtw2f")
+stretch_mode = 1
+
+[node name="transition_animation" type="AnimationPlayer" parent="transition"]
+libraries = {
+&"": SubResource("AnimationLibrary_jk1qb")
+}
+
+[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="button_rotate" to="." method="_on_button_rotate_timeout"]

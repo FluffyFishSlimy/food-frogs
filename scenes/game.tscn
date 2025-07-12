@@ -1,0 +1,365 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4jl6sifmdjwx"]
+
+[ext_resource type="Script" uid="uid://da682hwtoa4pj" path="res://scenes/game.gd" id="1_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://hdt2n0myxe8f" path="res://assets/squigly.png" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://dca5ag644thxi" path="res://scenes/ui.gd" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://b68apv0173h4i" path="res://scenes/frog.tscn" id="4_lbhrr"]
+
+[sub_resource type="Animation" id="Animation_uwrxv"]
+resource_name = "open"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.433333, 1.43333),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, -7), Vector2(0, -800)]
+}
+
+[sub_resource type="Animation" id="Animation_yqjtg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -7)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lnu2h"]
+_data = {
+&"RESET": SubResource("Animation_yqjtg"),
+&"open": SubResource("Animation_uwrxv")
+}
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_lnu2h")
+
+[node name="canvas" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="bg" type="ColorRect" parent="canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ui" type="CanvasLayer" parent="."]
+script = ExtResource("2_lbhrr")
+
+[node name="transition" type="ColorRect" parent="ui"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -799.998
+offset_bottom = -739.998
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.784314, 0.913725, 0.72549, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ui/transition"]
+modulate = Color(0.784314, 0.913725, 0.72549, 1)
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = 342.0
+offset_right = -1.0
+offset_bottom = 442.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("1_uwrxv")
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ui/transition/TextureRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_lnu2h")
+}
+autoplay = "open"
+
+[node name="frogs" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="frog_container" type="GridContainer" parent="frogs"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -535.0
+offset_top = -310.0
+offset_right = 535.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 35
+theme_override_constants/v_separation = 20
+columns = 12
+
+[node name="Frog" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog2" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog3" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog4" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog5" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog6" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog7" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog8" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog9" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog10" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog11" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog12" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog13" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog14" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog15" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog16" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog17" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog18" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog19" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog20" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog21" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog22" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog23" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog24" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog25" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog26" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog27" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog28" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog29" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog30" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog31" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog32" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog33" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog34" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog35" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog36" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog37" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog38" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog39" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog40" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog41" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog42" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog43" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog44" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog45" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog46" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog47" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog48" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog49" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog50" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog51" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog52" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog53" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog54" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog55" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog56" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog57" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog58" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog59" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog60" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog61" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog62" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog63" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog64" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog65" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog66" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog67" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog68" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog69" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog70" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog71" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog72" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog73" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog74" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog75" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog76" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog77" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog78" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog79" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog80" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog81" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog82" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog83" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2
+
+[node name="Frog84" parent="frogs/frog_container" instance=ExtResource("4_lbhrr")]
+layout_mode = 2

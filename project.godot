@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Fruit Frogs"
+run/main_scene="uid://dqee3y63gjrl3"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+SoundManager="*res://scenes/sound_manager.tscn"
+data="*res://scenes/data.gd"
+
+[display]
+
+window/size/mode=3
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+
+[gui]
+
+common/snap_controls_to_pixels=false
