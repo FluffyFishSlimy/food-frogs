@@ -30,7 +30,7 @@ func button_scale_up(button):
 	var t = create_tween().set_trans(Tween.TRANS_CIRC)
 	t.tween_property(button, "scale", Vector2(1.1, 1.1), 0.2)
 	wiggle_button_object = button
-	SoundManager.play_sound("button_hover", randf_range(0.9, 1.1))
+	SoundManager.play_sound("button_hover", randf_range(0.9, 1.1), 0)
 
 func button_scale_down(button):
 	wiggle_button_object = null
@@ -42,7 +42,7 @@ func button_click_sound(button):
 	var t = create_tween().set_trans(Tween.TRANS_CIRC)
 	t.tween_property(button, "scale", Vector2(0.85, 0.85), 0.1)
 	t.chain().tween_property(button, "scale", Vector2(1, 1), 0.1)
-	SoundManager.play_sound("button_press", randf_range(0.8, 1.2))
+	SoundManager.play_sound("button_press", randf_range(0.8, 1.2), 0)
 
 func _on_quit_pressed() -> void:
 	if start_pressed == false:

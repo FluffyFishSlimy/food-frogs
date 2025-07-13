@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Fruit" load_steps=3 format=3 uid="uid://0hputrg6h476"]
+
+[ext_resource type="Texture2D" uid="uid://1apgr6qw67nw" path="res://assets/fruits/electro_carrot.png" id="1_jbuf2"]
+[ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="2_6uk4v"]
+
+[resource]
+script = ExtResource("2_6uk4v")
+name = "Electro Carrot"
+fruit_sprite = ExtResource("1_jbuf2")
+metadata/_custom_type_script = "uid://bie4uo18q168e"

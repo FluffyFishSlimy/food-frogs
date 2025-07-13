@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2woo2wm7p3rh"]
+
+[ext_resource type="Script" uid="uid://ds3ybe8ck61u1" path="res://scenes/drag_item.gd" id="1_lkd7p"]
+[ext_resource type="Texture2D" uid="uid://dp1t48higgrbj" path="res://assets/fruits/hot_pepper.png" id="1_taadg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkd7p"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.235294, 0.756863, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="drag_item" type="Node2D"]
+script = ExtResource("1_lkd7p")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(60, 60)
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(30, 30)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lkd7p")
+
+[node name="fruit_icon" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_taadg")
+expand_mode = 1
+
+[node name="button_rotate" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="button_rotate" to="." method="_on_button_rotate_timeout"]

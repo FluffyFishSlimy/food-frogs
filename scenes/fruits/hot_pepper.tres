@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Fruit" load_steps=3 format=3 uid="uid://dhm5276fxa6hj"]
+
+[ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_g23b3"]
+[ext_resource type="Texture2D" uid="uid://dp1t48higgrbj" path="res://assets/fruits/hot_pepper.png" id="1_tq0nt"]
+
+[resource]
+script = ExtResource("1_g23b3")
+name = "Hot Pepper"
+fruit_sprite = ExtResource("1_tq0nt")
+metadata/_custom_type_script = "uid://bie4uo18q168e"

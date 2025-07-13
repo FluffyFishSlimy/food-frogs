@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://kxhedlhel8d8"]
+
+[ext_resource type="Script" uid="uid://dme1v8eechdlf" path="res://scenes/bullet.gd" id="1_mkf8s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
+radius = 16.0312
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkf8s"]
+bg_color = Color(0.365081, 0.847656, 0.168869, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.300248, 0.710938, 0.133301, 1)
+corner_radius_top_left = 500
+corner_radius_top_right = 500
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
+
+[node name="bullet" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_mkf8s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h1aey")
+
+[node name="timeout" type="Timer" parent="."]
+wait_time = 15.0
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mkf8s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="timeout" to="." method="_on_timeout_timeout"]

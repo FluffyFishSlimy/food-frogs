@@ -2,8 +2,8 @@
 
 [ext_resource type="Shader" uid="uid://dyxgo12ctlf7c" path="res://assets/scroll.gdshader" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://47knc0g2a078" path="res://scenes/main_menu.gd" id="1_wu84c"]
-[ext_resource type="Texture2D" uid="uid://c66kc221rq2yy" path="res://assets/frog_icon_green.png" id="2_bqqt6"]
 [ext_resource type="FontFile" uid="uid://ci1tr875gml4b" path="res://assets/DynaPuff/DynaPuff-Bold.ttf" id="3_wu84c"]
+[ext_resource type="Texture2D" uid="uid://b8lkc5wafut5c" path="res://assets/frog_pattern.png" id="4_oa1go"]
 [ext_resource type="Theme" uid="uid://cb266ecfib6xp" path="res://assets/main_theme.tres" id="5_8ln24"]
 [ext_resource type="Texture2D" uid="uid://hdt2n0myxe8f" path="res://assets/squigly.png" id="6_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://b68apv0173h4i" path="res://scenes/frog.tscn" id="7_oa1go"]
@@ -11,7 +11,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wu84c"]
 shader = ExtResource("1_ekxnf")
 shader_parameter/motion = Vector2(-10, 10)
-shader_parameter/scale = 0.2
+shader_parameter/scale = 0.1
 shader_parameter/offset = Vector2(0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bqqt6"]
@@ -127,9 +127,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -176.0
+offset_bottom = 176.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_bqqt6")
+texture = ExtResource("4_oa1go")
 
 [node name="title" type="Label" parent="."]
 layout_mode = 0
@@ -240,6 +242,7 @@ offset_right = 40.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+hover_outline = false
 
 [node name="loading" type="Label" parent="transition"]
 layout_mode = 1

@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://w4s2v6tmhacl"]
+[gd_scene load_steps=6 format=3 uid="uid://w4s2v6tmhacl"]
 
-[ext_resource type="Texture2D" uid="uid://dp1t48higgrbj" path="res://assets/fruits/hot_pepper.png" id="1_ar6f8"]
 [ext_resource type="FontFile" uid="uid://ci1tr875gml4b" path="res://assets/DynaPuff/DynaPuff-Bold.ttf" id="1_fnh5e"]
 [ext_resource type="Script" uid="uid://dbuxkfhni0us6" path="res://scenes/fruit_item.gd" id="1_jkon8"]
 
@@ -46,7 +45,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_ar6f8")
 expand_mode = 1
 
 [node name="count" type="Label" parent="."]

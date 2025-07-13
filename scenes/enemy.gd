@@ -1,7 +1,17 @@
 extends CharacterBody2D
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
+@onready var animation_player: AnimationPlayer = $flag_detect/AnimationPlayer
 
 var speed = 50
+var damage = 1
+var health = 10
+
+func _ready() -> void:
+	await get_tree().create_timer(randf_range(0.1, 1)).timeout
+	animation_player.play("attack")
+
+func take_damage(dmg):
+	pass
 
 func _physics_process(_delta: float) -> void:
 	
@@ -19,3 +29,6 @@ func makepath():
 
 func _on_pathfind_timeout() -> void:
 	makepath()
+
+func _on_area_2d_area_entered(_area: Area2D) -> void:
+	data.health -= damage

@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b68apv0173h4i"]
+[gd_scene load_steps=12 format=3 uid="uid://b68apv0173h4i"]
 
 [ext_resource type="Script" uid="uid://bgu6hdfe1nxld" path="res://scenes/frog.gd" id="1_mqod6"]
+[ext_resource type="Texture2D" uid="uid://ccrgjgqnvkmjq" path="res://assets/frog_outline.png" id="2_qyo2l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g2vb"]
 bg_color = Color(0.737255, 0.737255, 0.737255, 1)
@@ -58,10 +59,14 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qyo2l"]
+radius = 1718.13
+
 [node name="Frog" type="Control"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 3
 anchors_preset = 0
+pivot_offset = Vector2(40, 40)
 script = ExtResource("1_mqod6")
 
 [node name="foot" type="Control" parent="."]
@@ -72,6 +77,7 @@ offset_top = 51.0
 offset_right = 39.0
 offset_bottom = 91.0
 rotation = 0.523599
+mouse_filter = 2
 
 [node name="toe" type="Panel" parent="foot"]
 custom_minimum_size = Vector2(10, 20)
@@ -127,6 +133,7 @@ offset_top = 71.0
 offset_right = 86.0
 offset_bottom = 111.0
 rotation = -0.523599
+mouse_filter = 2
 
 [node name="toe" type="Panel" parent="foot2"]
 custom_minimum_size = Vector2(10, 20)
@@ -182,6 +189,7 @@ offset_top = 5.0
 offset_right = 34.0
 offset_bottom = 45.0
 rotation = 0.523599
+mouse_filter = 2
 
 [node name="toe" type="Panel" parent="foot3"]
 custom_minimum_size = Vector2(10, 20)
@@ -237,6 +245,7 @@ offset_top = 25.0
 offset_right = 91.0
 offset_bottom = 65.0
 rotation = -0.523599
+mouse_filter = 2
 
 [node name="toe" type="Panel" parent="foot4"]
 custom_minimum_size = Vector2(10, 20)
@@ -291,23 +300,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u8gyo")
 
-[node name="mouth_flat" type="Panel" parent="."]
+[node name="mouth_open" type="Panel" parent="."]
 visible = false
-custom_minimum_size = Vector2(40, 9)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -16.0
-offset_right = 20.0
-offset_bottom = -7.0
+offset_left = -9.0
+offset_top = -19.0
+offset_right = 12.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq8tc")
 
 [node name="mouth_smile" type="Line2D" parent="."]
@@ -332,6 +342,7 @@ offset_top = -30.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4ifle")
 
 [node name="mouth_dot" type="Panel" parent="."]
@@ -346,6 +357,7 @@ offset_right = -64.0
 offset_bottom = -53.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq8tc")
 
 [node name="mouth_dot2" type="Panel" parent="."]
@@ -360,6 +372,7 @@ offset_right = -9.0
 offset_bottom = -55.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq8tc")
 
 [node name="eye container" type="HBoxContainer" parent="."]
@@ -372,10 +385,12 @@ offset_top = -10.0
 offset_right = 31.0
 offset_bottom = 18.0
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="eyelid_left" type="Panel" parent="eye container"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu7fg")
 
 [node name="eyesocket_left" type="Panel" parent="eye container/eyelid_left"]
@@ -392,6 +407,7 @@ offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mqod6")
 
 [node name="eyeball_left" type="Panel" parent="eye container/eyelid_left/eyesocket_left"]
@@ -408,11 +424,13 @@ offset_right = 5.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qyo2l")
 
 [node name="eyelid_left2" type="Panel" parent="eye container"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu7fg")
 
 [node name="eyesocket_right" type="Panel" parent="eye container/eyelid_left2"]
@@ -429,6 +447,7 @@ offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mqod6")
 
 [node name="eyeball_right" type="Panel" parent="eye container/eyelid_left2/eyesocket_right"]
@@ -446,8 +465,58 @@ offset_right = 5.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qyo2l")
 
 [node name="nav_mesh" type="Polygon2D" parent="."]
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(5, 4, 74, 5, 74, 75, 2, 75)
+
+[node name="outline" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+texture = ExtResource("2_qyo2l")
+expand_mode = 1
+
+[node name="enemy_detect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_detect"]
+visible = false
+position = Vector2(40, 40)
+shape = SubResource("CircleShape2D_qyo2l")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(40, 31)
+
+[node name="shoot_timer" type="Timer" parent="."]
+
+[node name="click_detect" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="body_entered" from="enemy_detect" to="." method="_on_enemy_detect_body_entered"]
+[connection signal="body_exited" from="enemy_detect" to="." method="_on_enemy_detect_body_exited"]
+[connection signal="timeout" from="shoot_timer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="pressed" from="click_detect" to="." method="_on_click_detect_pressed"]

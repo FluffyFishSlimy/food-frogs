@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://qvoskuuxn0kd"]
+[gd_scene load_steps=5 format=3 uid="uid://qvoskuuxn0kd"]
 
 [ext_resource type="Script" uid="uid://dq3bqefbrxsvk" path="res://scenes/flag.gd" id="1_32e5v"]
 [ext_resource type="Texture2D" uid="uid://cvl17lfqkijue" path="res://assets/flag.png" id="1_76ss4"]
@@ -9,6 +9,9 @@ corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_32e5v"]
+radius = 33.0606
 
 [node name="flag" type="Node2D"]
 script = ExtResource("1_32e5v")
@@ -26,3 +29,11 @@ texture = ExtResource("1_76ss4")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-6, -7)
+
+[node name="Area2D" type="Area2D" parent="Marker2D"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/Area2D"]
+shape = SubResource("CircleShape2D_32e5v")
+
+[connection signal="area_entered" from="Marker2D/Area2D" to="." method="_on_area_2d_area_entered"]
