@@ -11,6 +11,7 @@ func _ready() -> void:
 	tab_name_label.scale = Vector2(0, 0)
 	self_modulate = Color('#ffffff')
 	data.tab_change.connect(tab_changed)
+	data.tab_change.emit()
 
 func tab_changed():
 	self_modulate = Color('#ffffff')

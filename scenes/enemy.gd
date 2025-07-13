@@ -2,16 +2,21 @@ extends CharacterBody2D
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var animation_player: AnimationPlayer = $flag_detect/AnimationPlayer
 
-var speed = 50
+var speed = 25
 var damage = 1
-var health = 10
+var health = 3
+var coin_value = 1
 
 func _ready() -> void:
 	await get_tree().create_timer(randf_range(0.1, 1)).timeout
 	animation_player.play("attack")
 
 func take_damage(dmg):
-	pass
+	health -= dmg
+	# die
+	if health <= 0:
+		data.spawn_coin.emit(global_position, coin_value)
+		queue_free()
 
 func _physics_process(_delta: float) -> void:
 	

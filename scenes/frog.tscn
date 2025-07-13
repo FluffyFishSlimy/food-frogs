@@ -4,21 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://ccrgjgqnvkmjq" path="res://assets/frog_outline.png" id="2_qyo2l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g2vb"]
-bg_color = Color(0.737255, 0.737255, 0.737255, 1)
+bg_color = Color(0.776471, 0.776471, 0.776471, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybftx"]
-bg_color = Color(0.737255, 0.737255, 0.737255, 1)
+bg_color = Color(0.776471, 0.776471, 0.776471, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8gyo"]
-bg_color = Color(0.738281, 0.738281, 0.738281, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -32,28 +32,28 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ifle"]
-bg_color = Color(0.632813, 0.632813, 0.632813, 1)
+bg_color = Color(0.847656, 0.847656, 0.847656, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu7fg"]
-bg_color = Color(0.737255, 0.737255, 0.737255, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqod6"]
-bg_color = Color(0.631373, 0.631373, 0.631373, 1)
+bg_color = Color(0.847059, 0.847059, 0.847059, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyo2l"]
-bg_color = Color(0.484375, 0.484375, 0.484375, 1)
+bg_color = Color(0.671875, 0.671875, 0.671875, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -69,7 +69,15 @@ anchors_preset = 0
 pivot_offset = Vector2(40, 40)
 script = ExtResource("1_mqod6")
 
-[node name="foot" type="Control" parent="."]
+[node name="frog_sprite" type="Control" parent="."]
+modulate = Color(0.752941, 0.752941, 0.752941, 1)
+custom_minimum_size = Vector2(80, 80)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="foot" type="Control" parent="frog_sprite"]
 modulate = Color(0.917969, 0.917969, 0.917969, 1)
 anchors_preset = 0
 offset_left = -1.0
@@ -79,7 +87,7 @@ offset_bottom = 91.0
 rotation = 0.523599
 mouse_filter = 2
 
-[node name="toe" type="Panel" parent="foot"]
+[node name="toe" type="Panel" parent="frog_sprite/foot"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -91,7 +99,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1g2vb")
 
-[node name="toe2" type="Panel" parent="foot"]
+[node name="toe2" type="Panel" parent="frog_sprite/foot"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -108,7 +116,7 @@ grow_vertical = 2
 rotation = -0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="toe3" type="Panel" parent="foot"]
+[node name="toe3" type="Panel" parent="frog_sprite/foot"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -125,7 +133,7 @@ grow_vertical = 2
 rotation = 0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="foot2" type="Control" parent="."]
+[node name="foot2" type="Control" parent="frog_sprite"]
 modulate = Color(0.917969, 0.917969, 0.917969, 1)
 anchors_preset = 0
 offset_left = 46.0
@@ -135,7 +143,7 @@ offset_bottom = 111.0
 rotation = -0.523599
 mouse_filter = 2
 
-[node name="toe" type="Panel" parent="foot2"]
+[node name="toe" type="Panel" parent="frog_sprite/foot2"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -147,7 +155,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="toe2" type="Panel" parent="foot2"]
+[node name="toe2" type="Panel" parent="frog_sprite/foot2"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -164,7 +172,7 @@ grow_vertical = 2
 rotation = -0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="toe3" type="Panel" parent="foot2"]
+[node name="toe3" type="Panel" parent="frog_sprite/foot2"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -181,7 +189,7 @@ grow_vertical = 2
 rotation = 0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="foot3" type="Control" parent="."]
+[node name="foot3" type="Control" parent="frog_sprite"]
 modulate = Color(0.917969, 0.917969, 0.917969, 1)
 anchors_preset = 0
 offset_left = -6.0
@@ -191,7 +199,7 @@ offset_bottom = 45.0
 rotation = 0.523599
 mouse_filter = 2
 
-[node name="toe" type="Panel" parent="foot3"]
+[node name="toe" type="Panel" parent="frog_sprite/foot3"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -203,7 +211,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1g2vb")
 
-[node name="toe2" type="Panel" parent="foot3"]
+[node name="toe2" type="Panel" parent="frog_sprite/foot3"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -220,7 +228,7 @@ grow_vertical = 2
 rotation = -0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="toe3" type="Panel" parent="foot3"]
+[node name="toe3" type="Panel" parent="frog_sprite/foot3"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -237,7 +245,7 @@ grow_vertical = 2
 rotation = 0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="foot4" type="Control" parent="."]
+[node name="foot4" type="Control" parent="frog_sprite"]
 modulate = Color(0.917969, 0.917969, 0.917969, 1)
 anchors_preset = 0
 offset_left = 51.0
@@ -247,7 +255,7 @@ offset_bottom = 65.0
 rotation = -0.523599
 mouse_filter = 2
 
-[node name="toe" type="Panel" parent="foot4"]
+[node name="toe" type="Panel" parent="frog_sprite/foot4"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -259,7 +267,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="toe2" type="Panel" parent="foot4"]
+[node name="toe2" type="Panel" parent="frog_sprite/foot4"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -276,7 +284,7 @@ grow_vertical = 2
 rotation = -0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="toe3" type="Panel" parent="foot4"]
+[node name="toe3" type="Panel" parent="frog_sprite/foot4"]
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -293,7 +301,7 @@ grow_vertical = 2
 rotation = 0.523599
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybftx")
 
-[node name="body" type="Panel" parent="."]
+[node name="body" type="Panel" parent="frog_sprite"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -303,7 +311,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u8gyo")
 
-[node name="mouth_open" type="Panel" parent="."]
+[node name="mouth_open" type="Panel" parent="frog_sprite"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -320,16 +328,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq8tc")
 
-[node name="mouth_smile" type="Line2D" parent="."]
+[node name="mouth_smile" type="Line2D" parent="frog_sprite"]
 position = Vector2(19, 12)
 scale = Vector2(0.590909, 0.590909)
 points = PackedVector2Array(18, 25, 27, 31, 37, 33, 47, 31, 56, 25)
 width = 15.0
-default_color = Color(0.631373, 0.631373, 0.631373, 1)
+default_color = Color(0.847059, 0.847059, 0.847059, 1)
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="belly" type="Panel" parent="."]
+[node name="belly" type="Panel" parent="frog_sprite"]
 custom_minimum_size = Vector2(40, 30)
 layout_mode = 1
 anchors_preset = 7
@@ -345,7 +353,22 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4ifle")
 
-[node name="mouth_dot" type="Panel" parent="."]
+[node name="fruit_icon" type="TextureRect" parent="frog_sprite/belly"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="mouth_dot" type="Panel" parent="frog_sprite"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -353,14 +376,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 11.0
 offset_top = 22.0
-offset_right = -64.0
-offset_bottom = -53.0
+offset_right = -29.0
+offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq8tc")
 
-[node name="mouth_dot2" type="Panel" parent="."]
+[node name="mouth_dot2" type="Panel" parent="frog_sprite"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -368,14 +391,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 66.0
 offset_top = 20.0
-offset_right = -9.0
-offset_bottom = -55.0
+offset_right = 26.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq8tc")
 
-[node name="eye container" type="HBoxContainer" parent="."]
+[node name="eye container" type="HBoxContainer" parent="frog_sprite"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -387,13 +410,13 @@ offset_bottom = 18.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="eyelid_left" type="Panel" parent="eye container"]
+[node name="eyelid_left" type="Panel" parent="frog_sprite/eye container"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu7fg")
 
-[node name="eyesocket_left" type="Panel" parent="eye container/eyelid_left"]
+[node name="eyesocket_left" type="Panel" parent="frog_sprite/eye container/eyelid_left"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -410,7 +433,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mqod6")
 
-[node name="eyeball_left" type="Panel" parent="eye container/eyelid_left/eyesocket_left"]
+[node name="eyeball_left" type="Panel" parent="frog_sprite/eye container/eyelid_left/eyesocket_left"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -427,13 +450,13 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qyo2l")
 
-[node name="eyelid_left2" type="Panel" parent="eye container"]
+[node name="eyelid_left2" type="Panel" parent="frog_sprite/eye container"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu7fg")
 
-[node name="eyesocket_right" type="Panel" parent="eye container/eyelid_left2"]
+[node name="eyesocket_right" type="Panel" parent="frog_sprite/eye container/eyelid_left2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -450,7 +473,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mqod6")
 
-[node name="eyeball_right" type="Panel" parent="eye container/eyelid_left2/eyesocket_right"]
+[node name="eyeball_right" type="Panel" parent="frog_sprite/eye container/eyelid_left2/eyesocket_right"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 1
@@ -473,6 +496,7 @@ color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(5, 4, 74, 5, 74, 75, 2, 75)
 
 [node name="outline" type="TextureRect" parent="."]
+self_modulate = Color(0, 1, 0.109375, 1)
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -514,9 +538,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="times_pressed_reset" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="body_entered" from="enemy_detect" to="." method="_on_enemy_detect_body_entered"]
 [connection signal="body_exited" from="enemy_detect" to="." method="_on_enemy_detect_body_exited"]
 [connection signal="timeout" from="shoot_timer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="pressed" from="click_detect" to="." method="_on_click_detect_pressed"]
+[connection signal="timeout" from="times_pressed_reset" to="." method="_on_times_pressed_reset_timeout"]

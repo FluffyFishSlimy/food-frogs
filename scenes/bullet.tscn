@@ -6,12 +6,7 @@
 radius = 16.0312
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkf8s"]
-bg_color = Color(0.365081, 0.847656, 0.168869, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.300248, 0.710938, 0.133301, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 500
 corner_radius_top_right = 500
 corner_radius_bottom_right = 500

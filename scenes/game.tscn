@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d4jl6sifmdjwx"]
+[gd_scene load_steps=27 format=3 uid="uid://d4jl6sifmdjwx"]
 
 [ext_resource type="Script" uid="uid://da682hwtoa4pj" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://hdt2n0myxe8f" path="res://assets/squigly.png" id="1_uwrxv"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://baj2b0vu0r44o" path="res://scenes/enemy.tscn" id="8_gee14"]
 [ext_resource type="Texture2D" uid="uid://ci22q2wek35o8" path="res://assets/reserch_icon.png" id="8_kvuet"]
 [ext_resource type="Texture2D" uid="uid://c0a2ce28f5r7p" path="res://assets/book.png" id="8_trtic"]
+[ext_resource type="Theme" uid="uid://cb266ecfib6xp" path="res://assets/main_theme.tres" id="11_ir15t"]
 [ext_resource type="Texture2D" uid="uid://c688ndkw7wbxc" path="res://assets/gear_icon.png" id="12_trtic"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
@@ -68,6 +69,10 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir15t"]
+content_margin_top = 20.0
+content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
 bg_color = Color(0.784314, 0.913725, 0.72549, 1)
@@ -146,7 +151,7 @@ grow_vertical = 2
 color = Color(0.784314, 0.913725, 0.72549, 1)
 
 [node name="Frog" parent="ui/transition" instance=ExtResource("4_lbhrr")]
-modulate = Color(0.707568, 0.894531, 0.63945, 1)
+modulate = Color(0.52549, 0.901961, 0.388235, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -239,67 +244,137 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_iywne")
 
-[node name="fruit_container" type="GridContainer" parent="ui/fruit_panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="ui/fruit_panel"]
+custom_minimum_size = Vector2(130, 550)
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -42.0
-offset_top = 33.0
-offset_right = 42.0
-offset_bottom = 117.0
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -298.5
+offset_right = 89.5
+offset_bottom = 281.5
 grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_ir15t")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ir15t")
+horizontal_scroll_mode = 0
+
+[node name="fruit_container" type="GridContainer" parent="ui/fruit_panel/ScrollContainer"]
+custom_minimum_size = Vector2(130, 700)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="fruit_item" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item2" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item2" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item3" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item3" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item4" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item4" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item5" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item5" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item6" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item6" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item7" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item7" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item8" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item8" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item9" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item9" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item10" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item10" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item11" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item11" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item12" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item12" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item13" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item13" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item14" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item14" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item15" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item15" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
-[node name="fruit_item16" parent="ui/fruit_panel/fruit_container" instance=ExtResource("6_p57ef")]
+[node name="fruit_item16" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item17" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item18" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item19" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item20" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item21" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item22" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item23" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item24" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item25" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item26" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item27" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item28" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item29" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item30" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item31" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item32" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item33" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item34" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+
+[node name="fruit_item35" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 
 [node name="health" type="ProgressBar" parent="ui"]

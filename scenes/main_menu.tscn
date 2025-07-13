@@ -141,7 +141,7 @@ offset_right = 698.0
 offset_bottom = 246.0
 pivot_offset = Vector2(320, 69)
 mouse_filter = 0
-text = "Fruit Frogs"
+text = "Nom Frogs"
 label_settings = SubResource("LabelSettings_bqqt6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="title"]
@@ -229,7 +229,7 @@ texture = ExtResource("6_rtw2f")
 stretch_mode = 1
 
 [node name="Frog" parent="transition" instance=ExtResource("7_oa1go")]
-modulate = Color(0.707568, 0.894531, 0.63945, 1)
+modulate = Color(0.524561, 0.902344, 0.387726, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

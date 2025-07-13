@@ -3,12 +3,23 @@ extends CanvasLayer
 @onready var percentage: Label = $health/percentage
 @onready var health_bar: ProgressBar = $health
 @onready var settings_button: Button = $settings
+@onready var fruit_container: GridContainer = $fruit_panel/ScrollContainer/fruit_container
 
 var wiggle_button_object
+
 
 func _ready() -> void:
 	transition.show()
 	add_button_animations()
+	data.tab_change.connect(chage_tabs)
+	
+func chage_tabs():
+	# Hide all otehr tabs firs
+	fruit_container.hide()
+	
+	# Show the selected Tab
+	if data.tab_selected == "Fruits":
+		fruit_container.show()
 
 func _physics_process(_delta: float) -> void:
 	health_bar.value = lerp(health_bar.value, data.health, 0.2)

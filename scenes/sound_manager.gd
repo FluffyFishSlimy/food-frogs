@@ -1,4 +1,12 @@
 extends Node
+@onready var main_menu: AudioStreamPlayer = $main_menu
+
+func _ready() -> void:
+	data.start_game.connect(main_game_music)
+
+func main_game_music():
+	main_menu.stop()
+	play_sound('game_music', 1, -15)
 
 func play_sound(sound, pitch, vol):
 	#print('Playing Sound: ' + sound)
