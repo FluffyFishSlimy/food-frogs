@@ -2,6 +2,9 @@ extends Node2D
 
 var speed = 300
 
+func _ready() -> void:
+	rotation_degrees = randi_range(0, 360)
+
 func _physics_process(delta: float) -> void:
 	if global_position.distance_to(get_global_mouse_position()) < 70:
 		var mouse_pos = get_global_mouse_position()

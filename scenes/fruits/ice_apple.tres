@@ -7,7 +7,13 @@
 [resource]
 script = ExtResource("2_kn4t1")
 name = "Ice Apple"
+desc = "Fruit Description"
 fruit_sprite = ExtResource("1_brrlm")
 frog_color = Color(0.333333, 0.658824, 0.945098, 1)
 belly_icon = ExtResource("1_kn4t1")
+has_been_discovered = true
+bullet_speed = 600
+bullet_damage = 1.0
+attack_speed = 1.0
+bullet_peirce = false
 metadata/_custom_type_script = "uid://bie4uo18q168e"

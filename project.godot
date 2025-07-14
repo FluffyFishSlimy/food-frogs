@@ -13,6 +13,8 @@ config_version=5
 config/name="Nom Frogs"
 run/main_scene="uid://dqee3y63gjrl3"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/image="uid://w8ppy2xvstwh"
 config/icon="uid://dv7dmxkt7nplv"
 
 [autoload]
@@ -25,6 +27,16 @@ data="*res://scenes/data.gd"
 window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="canvas_items"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "orange",
+"res://export/": "green",
+"res://scenes/": "purple",
+"res://scenes/fruits/": "blue",
+"res://scenes/recipes/": "pink"
+}
 
 [gui]
 

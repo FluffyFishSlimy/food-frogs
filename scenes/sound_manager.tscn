@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://xuieqplta6f4"]
+[gd_scene load_steps=13 format=3 uid="uid://xuieqplta6f4"]
 
 [ext_resource type="Script" uid="uid://co0bsmgra58hb" path="res://scenes/sound_manager.gd" id="1_gbdfy"]
 [ext_resource type="AudioStream" uid="uid://5yxfh5vwol2k" path="res://assets/sfx/button_hover.wav" id="2_shlr6"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://b8em356yvflis" path="res://assets/sfx/coin.wav" id="9_k1d7a"]
 [ext_resource type="AudioStream" uid="uid://b1r3twyr3iecj" path="res://assets/music/main_menu_music.wav" id="10_gb18h"]
 [ext_resource type="AudioStream" uid="uid://dqv5eqyke6fdr" path="res://assets/music/main_game_music.wav" id="11_wwv6j"]
+[ext_resource type="AudioStream" uid="uid://cmxi1c77fevk5" path="res://assets/sfx/water-drop2.mp3" id="12_55or6"]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_gbdfy")
@@ -62,3 +63,6 @@ bus = &"Music"
 stream = ExtResource("11_wwv6j")
 volume_db = -10.0
 bus = &"Music"
+
+[node name="water_plop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_55or6")

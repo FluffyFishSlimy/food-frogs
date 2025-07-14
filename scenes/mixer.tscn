@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://hvnwc62eirpr"]
+
+[ext_resource type="Texture2D" uid="uid://b5d1322ql3beh" path="res://assets/portal.png" id="1_vnmg7"]
+[ext_resource type="Script" uid="uid://b35vmk036esmd" path="res://scenes/mixer.gd" id="2_pef7k"]
+[ext_resource type="Texture2D" uid="uid://ca60vjt1wo3yd" path="res://assets/gree_portal.png" id="2_xmiak"]
+
+[sub_resource type="Animation" id="Animation_6yyi0"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_pef7k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pef7k"]
+_data = {
+&"RESET": SubResource("Animation_pef7k"),
+&"spin": SubResource("Animation_6yyi0")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_xmiak"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 89, 37, 0, 0, 0, 0, 116, 43, 0, 0, 0, 0, 125, 54, 0, 0, 0, 0, 129, 68, 0, 0, 0, 0, 130, 85, 0, 0, 0, 0, 127, 102, 0, 0, 0, 0, 118, 119, 0, 0, 0, 0, 100, 130, 0, 0, 0, 0, 68, 133, 0, 0, 0, 0, 41, 113, 0, 0, 0, 0, 39, 81, 0, 0, 0, 0, 47, 64, 0, 0, 0, 0, 64, 58, 0, 0, 0, 0, 87, 61, 0, 0, 0, 0, 101, 69, 0, 0, 0, 0, 103, 81, 0, 0, 0, 0, 97, 97, 0, 0, 0, 0, 87, 102, 0, 0, 0, 0, 73, 102, 0, 0, 0, 0, 59, 92, 0, 0, 0, 0, 65, 70, 0, 0, 0, 0, 73, 56, 0, 0, 0, 0, 88, 36)
+}
+point_count = 23
+
+[node name="mixer" type="Control"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_pef7k")
+
+[node name="mixer_sprite_outline" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -90.0
+offset_right = 90.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 6.28319
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(90, 90)
+mouse_filter = 2
+texture = ExtResource("2_xmiak")
+expand_mode = 1
+
+[node name="mixer_sprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -90.0
+offset_right = 90.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 6.28319
+pivot_offset = Vector2(90, 90)
+mouse_filter = 2
+texture = ExtResource("1_vnmg7")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="mixer_sprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_pef7k")
+}
+autoplay = "spin"
+speed_scale = 0.1
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(7, 6)
+curve = SubResource("Curve2D_xmiak")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

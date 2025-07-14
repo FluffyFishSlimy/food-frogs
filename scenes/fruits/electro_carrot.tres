@@ -7,7 +7,13 @@
 [resource]
 script = ExtResource("2_6uk4v")
 name = "Electro Carrot"
+desc = "Fruit Description"
 fruit_sprite = ExtResource("1_jbuf2")
 frog_color = Color(0.937255, 0.905882, 0.415686, 1)
 belly_icon = ExtResource("1_6uk4v")
+has_been_discovered = true
+bullet_speed = 600
+bullet_damage = 1.0
+attack_speed = 1.0
+bullet_peirce = false
 metadata/_custom_type_script = "uid://bie4uo18q168e"

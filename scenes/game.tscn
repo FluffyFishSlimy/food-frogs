@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://d4jl6sifmdjwx"]
+[gd_scene load_steps=30 format=3 uid="uid://d4jl6sifmdjwx"]
 
 [ext_resource type="Script" uid="uid://da682hwtoa4pj" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://hdt2n0myxe8f" path="res://assets/squigly.png" id="1_uwrxv"]
@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://qvoskuuxn0kd" path="res://scenes/flag.tscn" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dplyalhrc2i8b" path="res://assets/fruit_icon.png" id="8_dinhu"]
 [ext_resource type="PackedScene" uid="uid://baj2b0vu0r44o" path="res://scenes/enemy.tscn" id="8_gee14"]
-[ext_resource type="Texture2D" uid="uid://ci22q2wek35o8" path="res://assets/reserch_icon.png" id="8_kvuet"]
 [ext_resource type="Texture2D" uid="uid://c0a2ce28f5r7p" path="res://assets/book.png" id="8_trtic"]
 [ext_resource type="Theme" uid="uid://cb266ecfib6xp" path="res://assets/main_theme.tres" id="11_ir15t"]
 [ext_resource type="Texture2D" uid="uid://c688ndkw7wbxc" path="res://assets/gear_icon.png" id="12_trtic"]
+[ext_resource type="PackedScene" uid="uid://hvnwc62eirpr" path="res://scenes/mixer.tscn" id="13_ca42v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
 font = ExtResource("4_iywne")
@@ -73,6 +73,29 @@ corner_radius_bottom_left = 15
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir15t"]
 content_margin_top = 20.0
 content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ca42v"]
+bg_color = Color(0.792969, 0.792969, 0.792969, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.503454, 0.511719, 0.499725, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_ir15t"]
+font = ExtResource("4_iywne")
+font_size = 20
+font_color = Color(0.236816, 0.757813, 0, 1)
+outline_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
+font = ExtResource("4_iywne")
+font_size = 14
+font_color = Color(0.176663, 0.558594, 0.00436401, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
 bg_color = Color(0.784314, 0.913725, 0.72549, 1)
@@ -208,9 +231,9 @@ autoplay = "open"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ui"]
 offset_left = 57.0
-offset_top = 320.0
+offset_top = 391.0
 offset_right = 249.0
-offset_bottom = 696.0
+offset_bottom = 767.0
 
 [node name="panel_tab4" parent="ui/VBoxContainer" instance=ExtResource("6_0tnpc")]
 layout_mode = 2
@@ -221,11 +244,6 @@ tab_name = "Shop"
 layout_mode = 2
 tab_icon = ExtResource("8_trtic")
 tab_name = "Recipe Book"
-
-[node name="panel_tab2" parent="ui/VBoxContainer" instance=ExtResource("6_0tnpc")]
-layout_mode = 2
-tab_icon = ExtResource("8_kvuet")
-tab_name = "Lab"
 
 [node name="panel_tab3" parent="ui/VBoxContainer" instance=ExtResource("6_0tnpc")]
 layout_mode = 2
@@ -245,7 +263,7 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_iywne")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ui/fruit_panel"]
-custom_minimum_size = Vector2(130, 550)
+custom_minimum_size = Vector2(130, 368)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -255,7 +273,7 @@ anchor_bottom = 0.5
 offset_left = -76.5
 offset_top = -298.5
 offset_right = 89.5
-offset_bottom = 281.5
+offset_bottom = 69.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("11_ir15t")
@@ -376,6 +394,191 @@ layout_mode = 2
 
 [node name="fruit_item35" parent="ui/fruit_panel/ScrollContainer/fruit_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
+
+[node name="recipe_container" type="GridContainer" parent="ui/fruit_panel/ScrollContainer"]
+visible = false
+custom_minimum_size = Vector2(130, 700)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="lab_stuff" type="Control" parent="ui/fruit_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="mixer" parent="ui/fruit_panel/lab_stuff" instance=ExtResource("13_ca42v")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 58.5
+offset_right = 90.0
+offset_bottom = 238.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="mix_btn" type="Button" parent="ui/fruit_panel/lab_stuff"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = 234.0
+offset_right = 65.0
+offset_bottom = 285.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme = ExtResource("11_ir15t")
+theme_override_colors/font_disabled_color = Color(0.501961, 0.509804, 0.498039, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ca42v")
+disabled = true
+text = "Mix"
+
+[node name="recipe_info" type="Control" parent="ui/fruit_panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/fruit_panel/recipe_info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 35.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="fruit_name" type="Label" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Fire Pepper"
+label_settings = SubResource("LabelSettings_ir15t")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="spacing" type="Control" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="fruit_item" parent="ui/fruit_panel/recipe_info/VBoxContainer" instance=ExtResource("6_p57ef")]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+is_recipe = true
+is_big_display = true
+
+[node name="spacing2" type="Control" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="made_with" type="Label" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Made With"
+label_settings = SubResource("LabelSettings_ca42v")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="recipe_guide" type="GridContainer" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 3
+
+[node name="fruit_item" parent="ui/fruit_panel/recipe_info/VBoxContainer/recipe_guide" instance=ExtResource("6_p57ef")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+is_recipe = true
+is_big_display = true
+show_just_question_mark = true
+
+[node name="fruit_item2" parent="ui/fruit_panel/recipe_info/VBoxContainer/recipe_guide" instance=ExtResource("6_p57ef")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+is_recipe = true
+is_big_display = true
+show_just_question_mark = true
+
+[node name="fruit_item3" parent="ui/fruit_panel/recipe_info/VBoxContainer/recipe_guide" instance=ExtResource("6_p57ef")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+is_recipe = true
+is_big_display = true
+show_just_question_mark = true
+
+[node name="fruit_item4" parent="ui/fruit_panel/recipe_info/VBoxContainer/recipe_guide" instance=ExtResource("6_p57ef")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+is_recipe = true
+is_big_display = true
+show_just_question_mark = true
+
+[node name="fruit_item5" parent="ui/fruit_panel/recipe_info/VBoxContainer/recipe_guide" instance=ExtResource("6_p57ef")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+is_recipe = true
+is_big_display = true
+show_just_question_mark = true
+
+[node name="fruit_item6" parent="ui/fruit_panel/recipe_info/VBoxContainer/recipe_guide" instance=ExtResource("6_p57ef")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+is_recipe = true
+is_big_display = true
+show_just_question_mark = true
+
+[node name="spacing3" type="Control" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="desc" type="Label" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "This is a test description because this is a test fruit"
+label_settings = SubResource("LabelSettings_ca42v")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="spacing4" type="Control" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="back_btn" type="Button" parent="ui/fruit_panel/recipe_info/VBoxContainer"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("11_ir15t")
+text = "Back"
 
 [node name="health" type="ProgressBar" parent="ui"]
 anchors_preset = 10
@@ -628,5 +831,6 @@ position = Vector2(1224, 9)
 [node name="enemy12" parent="enemies" instance=ExtResource("8_gee14")]
 position = Vector2(-86, 712)
 
+[connection signal="pressed" from="ui/fruit_panel/recipe_info/VBoxContainer/back_btn" to="ui" method="_on_back_btn_pressed"]
 [connection signal="timeout" from="ui/button_rotate" to="ui" method="_on_button_rotate_timeout"]
 [connection signal="timeout" from="frogs/NavigationRegion2D/bake_timer" to="." method="_on_bake_timer_timeout"]
