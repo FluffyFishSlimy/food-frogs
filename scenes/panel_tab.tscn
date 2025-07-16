@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp86vnn2uy08u"]
+[gd_scene load_steps=7 format=3 uid="uid://bp86vnn2uy08u"]
 
 [ext_resource type="Texture2D" uid="uid://dplyalhrc2i8b" path="res://assets/fruit_icon.png" id="1_8yi8s"]
 [ext_resource type="Script" uid="uid://cxmiq53uj631" path="res://scenes/panel_tab.gd" id="1_gi5cc"]
@@ -21,6 +21,18 @@ font = ExtResource("3_vtrft")
 font_size = 25
 font_color = Color(0.236816, 0.757813, 0, 1)
 outline_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtrft"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 500
+corner_radius_top_right = 500
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
 
 [node name="panel_tab" type="Button"]
 self_modulate = Color(0.817233, 0.941406, 0.761215, 1)
@@ -69,6 +81,21 @@ grow_vertical = 2
 pivot_offset = Vector2(60, 15)
 text = "TabName"
 label_settings = SubResource("LabelSettings_xhrxs")
+
+[node name="badge" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -15.0
+offset_top = -4.0
+offset_right = 5.0
+offset_bottom = 16.0
+grow_horizontal = 0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(10, 10)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtrft")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

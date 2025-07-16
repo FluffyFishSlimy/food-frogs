@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://w4s2v6tmhacl"]
+[gd_scene load_steps=10 format=3 uid="uid://w4s2v6tmhacl"]
 
 [ext_resource type="FontFile" uid="uid://ci1tr875gml4b" path="res://assets/DynaPuff/DynaPuff-Bold.ttf" id="1_fnh5e"]
 [ext_resource type="Script" uid="uid://dbuxkfhni0us6" path="res://scenes/fruit_item.gd" id="1_jkon8"]
@@ -28,6 +28,12 @@ font_size = 20
 font_color = Color(0.235294, 0.756863, 0, 1)
 outline_size = 10
 
+[sub_resource type="LabelSettings" id="LabelSettings_1tl0y"]
+font = ExtResource("1_fnh5e")
+font_size = 20
+font_color = Color(0.929412, 0.788235, 0.223529, 1)
+outline_size = 10
+
 [sub_resource type="LabelSettings" id="LabelSettings_jkon8"]
 font = ExtResource("1_fnh5e")
 font_size = 20
@@ -39,6 +45,18 @@ font = ExtResource("1_fnh5e")
 font_size = 40
 font_color = Color(0, 0, 0, 1)
 outline_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar6f8"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 500
+corner_radius_top_right = 500
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
 
 [node name="fruit_item" type="Button"]
 custom_minimum_size = Vector2(60, 60)
@@ -75,6 +93,23 @@ label_settings = SubResource("LabelSettings_ar6f8")
 horizontal_alignment = 2
 vertical_alignment = 2
 
+[node name="cost_price" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_right = -3.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "$10"
+label_settings = SubResource("LabelSettings_1tl0y")
+horizontal_alignment = 2
+vertical_alignment = 2
+
 [node name="question_marks" type="Label" parent="."]
 visible = false
 layout_mode = 1
@@ -108,5 +143,20 @@ vertical_alignment = 1
 [node name="button_rotate" type="Timer" parent="."]
 wait_time = 0.4
 autostart = true
+
+[node name="badge" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -15.0
+offset_top = -4.0
+offset_right = 5.0
+offset_bottom = 16.0
+grow_horizontal = 0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(10, 10)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ar6f8")
 
 [connection signal="timeout" from="button_rotate" to="." method="_on_button_rotate_timeout"]

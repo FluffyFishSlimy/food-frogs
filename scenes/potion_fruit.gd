@@ -18,6 +18,22 @@ func _ready():
 	fruit_icon.texture = fruit_type.fruit_sprite
 	data.drag_item_start.connect(drag_start)
 	data.drag_stopped.connect(drag_stopped)
+	data.mix.connect(lock_in)
+	
+func lock_in():
+	pressed = true
+
+	var t = create_tween().set_trans(Tween.TRANS_CIRC)
+	t.tween_property(self, "speed", 200, 1)
+	await get_tree().create_timer(1).timeout
+	var t2 = create_tween().set_trans(Tween.TRANS_CIRC)
+	t2.tween_property(self, "speed", 0.1, 1)
+
+func delete_fruit():
+	var t = create_tween().set_trans(Tween.TRANS_CIRC)
+	t.tween_property(button, "scale", Vector2(0, 0), 0.5)
+	await t.finished
+	queue_free()
 
 func drag_start(_fruit):
 	button.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -43,14 +59,16 @@ func add_button_animations():
 		#button.pressed.connect(button_click_sound.bind(button))
 
 func button_scale_up(button):
-	var t = create_tween().set_trans(Tween.TRANS_CIRC)
-	t.tween_property(button, "scale", Vector2(1.1, 1.1), 0.2)
-	SoundManager.play_sound("button_hover", randf_range(0.9, 1.1), 0)
+	if data.mixing == false:
+		var t = create_tween().set_trans(Tween.TRANS_CIRC)
+		t.tween_property(button, "scale", Vector2(1.1, 1.1), 0.2)
+		SoundManager.play_sound("button_hover", randf_range(0.9, 1.1), 0)
 
 func button_scale_down(button):
-	var t = create_tween().set_trans(Tween.TRANS_CIRC)
-	t.tween_property(button, "scale", Vector2(1.0, 1.0), 0.2)
-	t.tween_property(button, "rotation", 0, 0.2)
+	if data.mixing == false:
+		var t = create_tween().set_trans(Tween.TRANS_CIRC)
+		t.tween_property(button, "scale", Vector2(1.0, 1.0), 0.2)
+		t.tween_property(button, "rotation", 0, 0.2)
 
 func button_click_sound(button):
 	var t = create_tween().set_trans(Tween.TRANS_CIRC)
@@ -59,19 +77,23 @@ func button_click_sound(button):
 	SoundManager.play_sound("button_press", randf_range(0.8, 1.2), 0)
 
 func button_down_pressed(button):
-	var t = create_tween().set_trans(Tween.TRANS_CIRC)
-	t.tween_property(button, "scale", Vector2(0.85, 0.85), 0.1)
-	SoundManager.play_sound("button_press", randf_range(0.8, 1.2), 0)
+	if data.mixing == false:
+		var t = create_tween().set_trans(Tween.TRANS_CIRC)
+		t.tween_property(button, "scale", Vector2(0.85, 0.85), 0.1)
+		SoundManager.play_sound("button_press", randf_range(0.8, 1.2), 0)
 	
 func button_released(button):
-	var t = create_tween().set_trans(Tween.TRANS_CIRC)
-	t.tween_property(button, "scale", Vector2(1, 1), 0.1)
+	if data.mixing == false:
+		var t = create_tween().set_trans(Tween.TRANS_CIRC)
+		t.tween_property(button, "scale", Vector2(1, 1), 0.1)
 	if pressed == false:
 		pressed = true
 		data.fruit_mixer_progress -= 100
 		# remove fruit from list
 		data.fruits_in_mixer.remove_at(data.fruits_in_mixer.find(fruit_type))
 		data.mixer_updated.emit()
+		
+		data.add_fruit_to_inv.emit(fruit_type)
 		
 		var t2 = create_tween().set_trans(Tween.TRANS_CIRC)
 		t2.tween_property(self, 'scale', Vector2(0, 0), 0.2)

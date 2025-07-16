@@ -3,6 +3,8 @@ extends Button
 @onready var count: Label = $count
 @onready var question_marks: Label = $question_marks
 @onready var one_question_mark: Label = $one_question_mark
+@onready var cost_price: Label = $cost_price
+@onready var badge: Panel = $badge
 
 var wiggle_button_object = null
 var fruit_type:Fruit = data.fruits[randi_range(0, data.fruits.size()-1)]
@@ -11,20 +13,38 @@ var is_mini_recipe:bool = false
 @export var recipe_discovered = false
 @export var is_big_display:bool = false
 @export var show_just_question_mark:bool = false
+@export var is_shop_item:bool = false
+@export var override_icon:CompressedTexture2D
+var new_fruit = false
 
 func _ready() -> void:
 	add_button_animations()
-	update_info()
+	update_info(fruit_type)
+	data.add_fruit_to_inv.connect(update_info)
+	data.remove_fruit_from_inv.connect(update_info)
 	
 	if is_mini_recipe:
 		count.hide()
 		update_mini_recipe()
+		data.tab_change.connect(update_mini_recipe)
+		
+	if is_shop_item:
+		count.hide()
+		cost_price.show()
 	
 	if is_recipe:
 		count.hide()
 		data.tab_change.connect(update_recipe_item)
+		data.new_fruit_badge.connect(show_badge)
+
+func show_badge(fruit):
+	if fruit_type == fruit:
+		new_fruit = true
+		var t = create_tween().set_trans(Tween.TRANS_CIRC)
+		t.tween_property(badge, 'scale', Vector2(1, 1), 0.3)
 
 func update_mini_recipe():
+	recipe_discovered = data.item_inspect_selected.has_been_discovered
 	if recipe_discovered == false:
 		one_question_mark.show()
 		fruit_icon.hide()
@@ -48,9 +68,18 @@ func update_recipe_item():
 		question_marks.hide()
 		one_question_mark.hide()
 
-func update_info():
-	fruit_icon.texture = fruit_type.fruit_sprite
-	count.text = "x" + str(randi_range(1, 10))
+func update_info(_fruit):
+	if override_icon:
+		fruit_icon.texture = override_icon
+	else:
+		fruit_icon.texture = fruit_type.fruit_sprite
+	count.text = "x" + str(fruit_type.fruit_count)
+	
+	if fruit_type.fruit_count <= 0:
+		if is_mini_recipe or is_recipe or is_shop_item:
+			pass
+		else:
+			queue_free()
 
 func add_button_animations():
 	var buttons = [
@@ -85,7 +114,7 @@ func button_click_sound(button):
 func button_down_pressed(button):
 	var t = create_tween().set_trans(Tween.TRANS_CIRC)
 	t.tween_property(button, "scale", Vector2(0.85, 0.85), 0.1)
-	if !is_recipe and !is_mini_recipe:
+	if !is_recipe and !is_mini_recipe and !is_shop_item:
 		modulate.a = 0.5
 		data.drag_item_start.emit(fruit_type)
 		data.holding_fruit = true
@@ -97,12 +126,16 @@ func button_released(button):
 	#print('Is recipe discovered: '+str(recipe_discovered))
 	
 	var t = create_tween().set_trans(Tween.TRANS_CIRC)
-	if !is_recipe and !is_mini_recipe:
+	if !is_recipe and !is_mini_recipe and !is_shop_item:
 		modulate.a = 1
 		data.drag_stopped.emit()
 		data.holding_fruit = false
 	else:
-		if !is_big_display and !show_just_question_mark:
+		if !is_big_display and !show_just_question_mark and !is_shop_item:
+			if new_fruit:
+				new_fruit = false
+				var t2 = create_tween().set_trans(Tween.TRANS_CIRC)
+				t2.tween_property(badge, 'scale', Vector2(0, 0), 0.3)
 			data.item_inspect_selected = fruit_type
 			data.inspect_fruit.emit()
 		if is_mini_recipe and recipe_discovered:

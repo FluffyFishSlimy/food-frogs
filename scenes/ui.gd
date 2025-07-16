@@ -16,12 +16,14 @@ extends CanvasLayer
 @onready var fruit_desc: Label = $fruit_panel/recipe_info/VBoxContainer/desc
 @onready var recipe_guide: GridContainer = $fruit_panel/recipe_info/VBoxContainer/recipe_guide
 @onready var made_with: Label = $fruit_panel/recipe_info/VBoxContainer/made_with
+@onready var shop_stuff: Control = $fruit_panel/shop
+@onready var coins_num: Label = $stats_container/coins_panel/HBoxContainer/coins_num
+@onready var coins_panel: Panel = $stats_container/coins_panel
 
 @onready var fruit_item = preload("res://scenes/fruit_item.tscn")
 
 var wiggle_button_object
 var recipes_open = false
-
 
 func _ready() -> void:
 	transition.show()
@@ -30,6 +32,21 @@ func _ready() -> void:
 	data.tab_change.emit()
 	data.inspect_fruit.connect(open_recipe_info)
 	data.mixer_able_to_mix.connect(mix_btn_update)
+	data.add_fruit_to_inv.connect(add_fruit_to_inv)
+	data.mixer_updated.connect(mix_or_unmix)
+	data.mixing_done.connect(update_recipe_info)
+	data.coin_picked_up.connect(bump_coin_counter)
+	
+	# Manually add in some fruits
+	if data.debug_type== data.cheat_type.ALL_FRUIT:
+		for fruit in data.fruits:
+			for i in range(30):
+				data.add_fruit_to_inv.emit(fruit)
+	if data.debug_type == data.cheat_type.ONLY_BASE_FRUIT:
+		for i in range(30):
+			data.add_fruit_to_inv.emit(data.fruits[0])
+			data.add_fruit_to_inv.emit(data.fruits[1])
+			data.add_fruit_to_inv.emit(data.fruits[2])
 	
 	# Add recipies
 	for fruit in data.fruits:
@@ -38,19 +55,70 @@ func _ready() -> void:
 		new_fruit_item.is_recipe = true
 		recipe_container.add_child(new_fruit_item)
 
+func add_fruit_to_inv(fruit):
+	fruit.has_been_discovered = true
+	if fruit.fruit_count <= 0:
+		fruit.fruit_count += 1
+		var new_fruit = fruit_item.instantiate()
+		new_fruit.fruit_type = fruit
+		fruit_container.add_child(new_fruit)
+	else:
+		fruit.fruit_count += 1
+
+func mix_or_unmix():
+	mix_btn.text = data.mix_mode
+
 func mix_btn_update(is_mixable, fruit):
 	mix_btn.disabled = !is_mixable
+	mix_btn.text = data.mix_mode
+
+func update_recipe_info():
+	if data.item_inspect_selected:
+		recipe_display_fruit.fruit_type = data.item_inspect_selected
+		#recipe_display_fruit.recipe_discovered = data.item_inspect_selected.has_been_discovered
+		recipe_display_fruit.update_info(null)
+		recipe_display_fruit.update_recipe_item()
+		
+		if data.item_inspect_selected.has_been_discovered:
+			fruit_name.text = data.item_inspect_selected.name
+			fruit_desc.text = data.item_inspect_selected.desc
+		else:
+			fruit_name.text = "???"
+			fruit_desc.text = "Discover this recipe to learn more"
+		
+		for child in recipe_guide.get_children():
+			child.queue_free()
+		
+		if data.item_inspect_selected.recipe_to_make:
+			made_with.text = "Made With"
+			
+			for fruit in data.item_inspect_selected.recipe_to_make.fruits_needed:
+				var new_requirement = fruit_item.instantiate()
+				new_requirement.fruit_type = fruit
+				new_requirement.is_mini_recipe = true
+				new_requirement.is_big_display = false
+				new_requirement.show_just_question_mark = true
+				new_requirement.recipe_discovered = data.item_inspect_selected.has_been_discovered
+				new_requirement.custom_minimum_size = Vector2(40, 40)
+				recipe_guide.add_child(new_requirement)
+		else:
+			made_with.text = "Made With\nNothing"
+	
 
 func open_recipe_info():
 	recipes_open = true
 	
 	recipe_display_fruit.fruit_type = data.item_inspect_selected
 	#recipe_display_fruit.recipe_discovered = data.item_inspect_selected.has_been_discovered
-	recipe_display_fruit.update_info()
+	recipe_display_fruit.update_info(null)
 	recipe_display_fruit.update_recipe_item()
 	
-	fruit_name.text = data.item_inspect_selected.name
-	fruit_desc.text = data.item_inspect_selected.desc
+	if data.item_inspect_selected.has_been_discovered:
+		fruit_name.text = data.item_inspect_selected.name
+		fruit_desc.text = data.item_inspect_selected.desc
+	else:
+		fruit_name.text = "???"
+		fruit_desc.text = "Discover this recipe to learn more"
 	
 	for child in recipe_guide.get_children():
 		child.queue_free()
@@ -79,6 +147,7 @@ func chage_tabs():
 	lab_stuff.hide()
 	recipe_container.hide()
 	recipe_info.hide()
+	shop_stuff.hide()
 	scroll_container.size.y = 368 # 580 
 	scroll_container.scroll_vertical = 0
 	
@@ -88,15 +157,20 @@ func chage_tabs():
 		lab_stuff.show()
 		scroll_container.size.y = 368
 	if data.tab_selected == "Recipe Book":
+		
 		if recipes_open:
 			recipe_info.show()
 		else:
 			recipe_container.show()
+		scroll_container.size.y = 580 # 580 
+	if data.tab_selected == "Shop":
+		shop_stuff.show()
 	
 func _physics_process(_delta: float) -> void:
 	health_bar.value = lerp(health_bar.value, data.health, 0.2)
 	percentage.text = "Health: " + str(clamp(int(round(data.health)), 0, 100)) + "%"
-
+	coins_num.text = str(data.coins)
+	
 func add_button_animations():
 	var buttons = [
 		settings_button,
@@ -109,6 +183,12 @@ func add_button_animations():
 		button.mouse_exited.connect(button_scale_down.bind(button))
 		button.button_down.connect(button_down_pressed.bind(button))
 		button.button_up.connect(button_released.bind(button))
+
+func bump_coin_counter():
+	coins_panel.pivot_offset = Vector2(coins_panel.size.x/2, coins_panel.size.y/2)
+	var t = create_tween().set_trans(Tween.TRANS_CIRC)
+	t.tween_property(coins_panel, "scale", Vector2(1.1, 1.1), 0.2)
+	t.chain().tween_property(coins_panel, "scale", Vector2(1, 1), 0.2)
 
 func button_scale_up(button):
 	if !button.disabled:
@@ -149,3 +229,10 @@ func _on_back_btn_pressed() -> void:
 	recipes_open = false
 	recipe_container.show()
 	recipe_info.hide()
+
+func _on_mix_btn_button_up() -> void:
+	if data.mixing == false:
+		data.mixing = true
+		data.mix.emit()
+		data.mixer_updated.emit()
+		data.mixer_able_to_mix.emit(false, null)

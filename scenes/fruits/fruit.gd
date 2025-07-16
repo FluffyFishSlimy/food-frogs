@@ -8,6 +8,7 @@ extends Resource
 @export var frog_color:Color
 @export var belly_icon:CompressedTexture2D
 @export var has_been_discovered:bool = false
+@export var fruit_count:int = 0
 @export var recipe_to_make:Recipe
 
 @export_category('Ability Stats')

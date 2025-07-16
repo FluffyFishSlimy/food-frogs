@@ -66,11 +66,21 @@ func _physics_process(_delta: float) -> void:
 				var target_pos_right = eyeball_right.global_position.direction_to(get_global_mouse_position())*look_scale
 				eyeball_right.position = lerp(eyeball_right.position, Vector2(target_pos_right.x+offset.x, target_pos_right.y+offset.y), 0.5)
 			else:
-				var target_pos_left = Vector2.ZERO
-				eyeball_left.position = lerp(eyeball_left.position, Vector2(target_pos_left.x+offset.x, target_pos_left.y+offset.y), 0.5)
+				if fruit_eaten != null and enemies_in_range.size() != 0:
+					var target = enemies_in_range[target_enemy].global_position
+					
+					var target_pos_left = eyeball_left.global_position.direction_to(target)*look_scale
+					eyeball_left.position = lerp(eyeball_left.position, Vector2(target_pos_left.x+offset.x, target_pos_left.y+offset.y), 0.5)
 				
-				var target_pos_right = Vector2.ZERO
-				eyeball_right.position = lerp(eyeball_right.position, Vector2(target_pos_right.x+offset.x, target_pos_right.y+offset.y), 0.5)
+					var target_pos_right = eyeball_right.global_position.direction_to(target)*look_scale
+					eyeball_right.position = lerp(eyeball_right.position, Vector2(target_pos_right.x+offset.x, target_pos_right.y+offset.y), 0.5)
+					
+				else:
+					var target_pos_left = Vector2.ZERO
+					eyeball_left.position = lerp(eyeball_left.position, Vector2(target_pos_left.x+offset.x, target_pos_left.y+offset.y), 0.5)
+					
+					var target_pos_right = Vector2.ZERO
+					eyeball_right.position = lerp(eyeball_right.position, Vector2(target_pos_right.x+offset.x, target_pos_right.y+offset.y), 0.5)
 
 func _on_mouse_entered() -> void:
 	if is_hidden == false:
@@ -98,6 +108,9 @@ func check_if_on_frog():
 		else:
 			SoundManager.play_sound('frog_eat2', randf_range(0.9, 1.1), 0)
 		fruit_eaten = data.item_seletecd
+		
+		fruit_eaten.fruit_count -= 1
+		data.remove_fruit_from_inv.emit(fruit_eaten)
 		
 		# apply food
 		frog_sprite.modulate = fruit_eaten.frog_color
