@@ -4,11 +4,13 @@ extends Resource
 @export_category('Basic Info')
 @export var name: String = 'Fruit Name'
 @export var desc:String = "Fruit Description"
+var level:int = -1
 @export var fruit_sprite:CompressedTexture2D
 @export var frog_color:Color
 @export var belly_icon:CompressedTexture2D
+@export var cost:int = 5
 @export var has_been_discovered:bool = false
-@export var fruit_count:int = 0
+var fruit_count:int = 0
 @export var recipe_to_make:Recipe
 
 @export_category('Ability Stats')

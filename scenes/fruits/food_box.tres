@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Fruit" load_steps=3 format=3 uid="uid://cw05hyh1opc62"]
+
+[ext_resource type="Texture2D" uid="uid://25vra7fhq6oj" path="res://assets/fruit_box.png" id="1_f062b"]
+[ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_rxljq"]
+
+[resource]
+script = ExtResource("1_rxljq")
+name = "Food Box"
+desc = "Get a random food"
+fruit_sprite = ExtResource("1_f062b")
+frog_color = Color(0, 0, 0, 1)
+cost = 10
+has_been_discovered = false
+bullet_speed = 600
+bullet_damage = 1.0
+attack_speed = 1.0
+bullet_peirce = false
+metadata/_custom_type_script = "uid://bie4uo18q168e"

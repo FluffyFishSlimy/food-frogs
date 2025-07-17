@@ -12,6 +12,8 @@ func _ready() -> void:
 	data.mix.connect(mix)
 	
 func mix():
+	SoundManager.play_sound('mix', randf_range(0.9, 1.1), 0)
+	
 	var t = create_tween().set_trans(Tween.TRANS_CIRC)
 	t.tween_property(animation_player, "speed_scale", 1, 1)
 	await get_tree().create_timer(1).timeout
@@ -46,6 +48,7 @@ func mix():
 	data.mixer_updated.emit()
 	data.mixing = false
 	data.mixing_done.emit()
+	SoundManager.play_sound('mixer_ding', randf_range(0.9, 1.1), 0)
 
 func add_fruit(fruit, new):
 	var new_fruit = potion_fruit.instantiate()
@@ -53,7 +56,7 @@ func add_fruit(fruit, new):
 	if new == false:
 		fruit.fruit_count -= 1
 	data.remove_fruit_from_inv.emit(fruit)
-	SoundManager.play_sound('water_plop', randf_range(0.7, 1.3), 0)
+	SoundManager.play_sound('water_plop', randf_range(0.7, 1.3), -10)
 	path_2d.add_child(new_fruit)
 
 func check_if_hovered():

@@ -26,6 +26,7 @@ var wiggle_button_object
 var recipes_open = false
 
 func _ready() -> void:
+	
 	transition.show()
 	add_button_animations()
 	data.tab_change.connect(chage_tabs)
@@ -169,7 +170,7 @@ func chage_tabs():
 func _physics_process(_delta: float) -> void:
 	health_bar.value = lerp(health_bar.value, data.health, 0.2)
 	percentage.text = "Health: " + str(clamp(int(round(data.health)), 0, 100)) + "%"
-	coins_num.text = str(data.coins)
+	coins_num.text = "¢" + str(data.coins)
 	
 func add_button_animations():
 	var buttons = [

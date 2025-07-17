@@ -8,6 +8,7 @@ extends Button
 
 var wiggle_button_object = null
 var fruit_type:Fruit = data.fruits[randi_range(0, data.fruits.size()-1)]
+@export var override_fruit:Fruit
 @export var is_recipe:bool = false
 var is_mini_recipe:bool = false
 @export var recipe_discovered = false
@@ -16,8 +17,15 @@ var is_mini_recipe:bool = false
 @export var is_shop_item:bool = false
 @export var override_icon:CompressedTexture2D
 var new_fruit = false
+var bought = false
+
+@onready var normal_cost_label = cost_price.label_settings.duplicate()
+@onready var disabled_cost_label = normal_cost_label.duplicate()
 
 func _ready() -> void:
+	if override_fruit:
+		fruit_type = override_fruit
+	
 	add_button_animations()
 	update_info(fruit_type)
 	data.add_fruit_to_inv.connect(update_info)
@@ -36,9 +44,34 @@ func _ready() -> void:
 		count.hide()
 		data.tab_change.connect(update_recipe_item)
 		data.new_fruit_badge.connect(show_badge)
+	
+	if is_shop_item:
+		if override_fruit == null:
+			fruit_type = data.get_rand_fruit_weighted()
+		if override_fruit == null:
+			if fruit_type.level == -1:
+				fruit_type.level = data.find_fruit_level(fruit_type)
+			fruit_type.cost = (fruit_type.level) * 5
+		cost_price.text = "¢" + str(fruit_type.cost)
+
+	disabled_cost_label.font_color = Color("#4b4b4b")
+	disabled_cost_label.outline_color = Color("#dddddd")
+
+func _process(_delta: float) -> void:
+	if is_shop_item:
+		if bought:
+			disabled = true
+			cost_price.label_settings = disabled_cost_label
+		else:
+			if data.coins >= fruit_type.cost:
+				disabled = false
+				cost_price.label_settings = normal_cost_label
+			else:
+				disabled = true
+				cost_price.label_settings = disabled_cost_label
 
 func show_badge(fruit):
-	if fruit_type == fruit:
+	if fruit_type == fruit and !is_big_display:
 		new_fruit = true
 		var t = create_tween().set_trans(Tween.TRANS_CIRC)
 		t.tween_property(badge, 'scale', Vector2(1, 1), 0.3)
@@ -94,10 +127,11 @@ func add_button_animations():
 		#button.pressed.connect(button_click_sound.bind(button))
 
 func button_scale_up(button):
-	var t = create_tween().set_trans(Tween.TRANS_CIRC)
-	t.tween_property(button, "scale", Vector2(1.1, 1.1), 0.2)
-	wiggle_button_object = button
-	SoundManager.play_sound("button_hover", randf_range(0.9, 1.1), 0)
+	if disabled == false:
+		var t = create_tween().set_trans(Tween.TRANS_CIRC)
+		t.tween_property(button, "scale", Vector2(1.1, 1.1), 0.2)
+		wiggle_button_object = button
+		SoundManager.play_sound("button_hover", randf_range(0.9, 1.1), 0)
 
 func button_scale_down(button):
 	wiggle_button_object = null
@@ -141,6 +175,24 @@ func button_released(button):
 		if is_mini_recipe and recipe_discovered:
 			data.item_inspect_selected = fruit_type
 			data.inspect_fruit.emit()
+		if is_shop_item:
+			if !is_big_display:
+				bought = true
+				disabled = true
+				override_icon = load("res://assets/x_icon.png")
+				update_info(null)
+				
+			data.coins -= fruit_type.cost
+			
+			if fruit_type.has_been_discovered == false and !is_big_display:
+				data.update_tab_badge.emit('Recipe Book', true)
+				data.new_fruit_badge.emit(fruit_type)
+			
+			if is_big_display == false:
+				data.add_fruit_to_inv.emit(fruit_type)
+			
+			SoundManager.play_sound("buy", randf_range(0.8, 1.2), 0)
+			
 	t.tween_property(button, "scale", Vector2(1, 1), 0.1)
 
 func _on_button_rotate_timeout() -> void:
