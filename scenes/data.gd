@@ -43,6 +43,8 @@ var fruits = [
 	load("res://scenes/fruits/electro_carrot.tres"),
 	load("res://scenes/fruits/dark_matter_lemon.tres"),
 	load("res://scenes/fruits/laser_egg.tres"),
+	load("res://scenes/fruits/necro_bone.tres"),
+	load("res://scenes/fruits/mega_fire_pepper.tres")
 ]
 
 var fruits_in_mixer: Array[Fruit] = []
