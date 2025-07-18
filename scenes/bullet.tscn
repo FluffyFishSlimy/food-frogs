@@ -21,7 +21,7 @@ script = ExtResource("1_mkf8s")
 shape = SubResource("CircleShape2D_h1aey")
 
 [node name="timeout" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 8.0
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 8

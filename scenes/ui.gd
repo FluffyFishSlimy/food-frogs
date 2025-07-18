@@ -19,6 +19,8 @@ extends CanvasLayer
 @onready var shop_stuff: Control = $fruit_panel/shop
 @onready var coins_num: Label = $stats_container/coins_panel/HBoxContainer/coins_num
 @onready var coins_panel: Panel = $stats_container/coins_panel
+@onready var box_opening: Control = $fruit_panel/box_opening
+@onready var scroll_wheel: VBoxContainer = $fruit_panel/box_opening/scroll_wheel_clip/scroll_wheel
 
 @onready var fruit_item = preload("res://scenes/fruit_item.tscn")
 
@@ -37,6 +39,7 @@ func _ready() -> void:
 	data.mixer_updated.connect(mix_or_unmix)
 	data.mixing_done.connect(update_recipe_info)
 	data.coin_picked_up.connect(bump_coin_counter)
+	data.open_box.connect(open_box)
 	
 	# Manually add in some fruits
 	if data.debug_type== data.cheat_type.ALL_FRUIT:
@@ -142,6 +145,54 @@ func open_recipe_info():
 	recipe_container.hide()
 	recipe_info.show()
 
+func open_box():
+	var not_gotten_fruit = []
+	
+	scroll_wheel.position.y = -29
+	var fruit_gotten
+	
+	for child in scroll_wheel.get_children():
+		child.queue_free()
+	for i in range(46):
+		var new_fruit = fruit_item.instantiate()
+		new_fruit.fruit_type = data.get_rand_fruit_weighted()
+		new_fruit.is_recipe = true
+		new_fruit.recipe_discovered = true
+		new_fruit.box_item = true
+		if i == 40:
+			fruit_gotten = new_fruit
+			new_fruit.is_box_reward = true
+		else:
+			not_gotten_fruit.append(new_fruit)
+		scroll_wheel.add_child(new_fruit)
+		
+		
+	shop_stuff.hide()
+	box_opening.show()
+	var t = create_tween().set_trans(Tween.TRANS_CIRC)
+	var target_y = -2583.0
+
+	# Tween the position over 2 seconds
+	t.tween_method(_update_scroll_y, scroll_wheel.position.y, target_y, 2)
+	await t.finished
+	
+	for fruit_item in not_gotten_fruit:
+		#fruit_item.disabled = true
+		var t2 = create_tween().set_trans(Tween.TRANS_CIRC)
+		t2.tween_property(fruit_item, "modulate", Color("#bababa"), 0.3)
+	
+	SoundManager.play_sound('mixer_ding', randf_range(0.9, 1.1), 0)
+	await get_tree().create_timer(0.3).timeout
+
+var last_sound_y = -29
+var sound_interval = 65
+
+func _update_scroll_y(value):
+	scroll_wheel.position.y = value
+	if abs(value - last_sound_y) >= sound_interval:
+		last_sound_y = value
+		SoundManager.play_sound("button_hover", randf_range(0.9, 1.1), 0)
+
 func chage_tabs():
 	# Hide all otehr tabs firs
 	fruit_container.hide()
@@ -149,6 +200,7 @@ func chage_tabs():
 	recipe_container.hide()
 	recipe_info.hide()
 	shop_stuff.hide()
+	box_opening.hide()
 	scroll_container.size.y = 368 # 580 
 	scroll_container.scroll_vertical = 0
 	
@@ -165,7 +217,10 @@ func chage_tabs():
 			recipe_container.show()
 		scroll_container.size.y = 580 # 580 
 	if data.tab_selected == "Shop":
-		shop_stuff.show()
+		if data.is_opening_box:
+			box_opening.show()
+		else:
+			shop_stuff.show()
 	
 func _physics_process(_delta: float) -> void:
 	health_bar.value = lerp(health_bar.value, data.health, 0.2)

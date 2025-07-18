@@ -10,6 +10,7 @@ extends Control
 @onready var click_detect: Button = $click_detect
 @onready var fruit_belly_icon: TextureRect = $frog_sprite/belly/fruit_icon
 @onready var frog_sprite: Control = $frog_sprite
+@onready var close_mouth: Timer = $close_mouth
 
 @export var is_hidden:bool = false
 @export var hover_outline:bool = true
@@ -120,13 +121,16 @@ func check_if_on_frog():
 func _on_shoot_timer_timeout() -> void:
 	if shooting and enemies_in_range.is_empty() == false and fruit_eaten != null:
 		for spawner in bullet_spawners:
-			data.spawn_bullet.emit(spawner.global_position, spawner.global_transform, fruit_eaten)
-			SoundManager.play_sound("shoot", randf_range(0.8, 1.2), -15)
-			mouth_open.show()
-			mouth_smile.hide()
-			await get_tree().create_timer(0.2).timeout
-			mouth_open.hide()
-			mouth_smile.show()
+			if fruit_eaten.bullet_spread != 0:
+				spawner.rotation_degrees -= (fruit_eaten.bullet_spread * (fruit_eaten.bullets_shot+1))/2
+			for i in range(fruit_eaten.bullets_shot):
+				spawner.rotation_degrees += fruit_eaten.bullet_spread
+				data.spawn_bullet.emit(spawner.global_position, spawner.global_transform, fruit_eaten)
+				SoundManager.play_sound("shoot", randf_range(0.8, 1.2), -15)
+				mouth_open.show()
+				mouth_smile.hide()
+				
+				close_mouth.start()
 
 func _on_enemy_detect_body_entered(body: Node2D) -> void:
 	enemies_in_range.append(body)
@@ -152,3 +156,8 @@ func _on_click_detect_pressed() -> void:
 
 func _on_times_pressed_reset_timeout() -> void:
 	times_pressed = 0
+
+
+func _on_close_mouth_timeout() -> void:
+	mouth_open.hide()
+	mouth_smile.show()

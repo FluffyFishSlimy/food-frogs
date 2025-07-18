@@ -22,6 +22,7 @@ func spawn_bullet(pos, trans, fruit):
 	new_bullet.bullet_damge = fruit.bullet_damage
 	new_bullet.speed = fruit.bullet_speed
 	new_bullet.bullet_peice = fruit.bullet_peirce
+	new_bullet.scale = Vector2(fruit.bullet_scale, fruit.bullet_scale)
 	
 	add_child(new_bullet)
 	

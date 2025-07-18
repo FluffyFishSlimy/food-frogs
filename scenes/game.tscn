@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://d4jl6sifmdjwx"]
+[gd_scene load_steps=41 format=3 uid="uid://d4jl6sifmdjwx"]
 
 [ext_resource type="Script" uid="uid://da682hwtoa4pj" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://hdt2n0myxe8f" path="res://assets/squigly.png" id="1_uwrxv"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://c688ndkw7wbxc" path="res://assets/gear_icon.png" id="12_trtic"]
 [ext_resource type="PackedScene" uid="uid://hvnwc62eirpr" path="res://scenes/mixer.tscn" id="13_ca42v"]
 [ext_resource type="Resource" uid="uid://cw05hyh1opc62" path="res://scenes/fruits/food_box.tres" id="13_rysoc"]
+[ext_resource type="Texture2D" uid="uid://cdfy65rk7mai8" path="res://assets/box_500_x_500.png" id="14_rysoc"]
+[ext_resource type="Texture2D" uid="uid://begg31yuy17be" path="res://assets/arrow.png" id="15_ssvqc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
 font = ExtResource("4_iywne")
@@ -103,6 +105,45 @@ font = ExtResource("4_iywne")
 font_size = 25
 font_color = Color(0.236816, 0.757813, 0, 1)
 outline_size = 30
+
+[sub_resource type="Animation" id="Animation_ssvqc"]
+resource_name = "passive"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("space:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(12, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_264po"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("space:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1kice"]
+_data = {
+&"RESET": SubResource("Animation_264po"),
+&"passive": SubResource("Animation_ssvqc")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
 bg_color = Color(0.784314, 0.913725, 0.72549, 1)
@@ -342,6 +383,7 @@ theme_override_constants/v_separation = 10
 columns = 2
 
 [node name="lab_stuff" type="Control" parent="ui/fruit_panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -578,6 +620,100 @@ is_shop_item = true
 [node name="fruit_item4" parent="ui/fruit_panel/shop/VBoxContainer/item_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 is_shop_item = true
+
+[node name="box_opening" type="Control" parent="ui/fruit_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="scroll_wheel_clip" type="ColorRect" parent="ui/fruit_panel/box_opening"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="scroll_wheel" type="VBoxContainer" parent="ui/fruit_panel/box_opening/scroll_wheel_clip"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = 239.0
+offset_right = 30.0
+offset_bottom = 3659.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="box" type="TextureRect" parent="ui/fruit_panel/box_opening"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -59.5
+offset_top = -136.0
+offset_right = 59.5
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("14_rysoc")
+expand_mode = 1
+
+[node name="arrows" type="HBoxContainer" parent="ui/fruit_panel/box_opening"]
+modulate = Color(0.235294, 0.756863, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.5
+offset_top = -77.5
+offset_right = 72.5
+offset_bottom = -27.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 30
+
+[node name="left_arrow" type="TextureRect" parent="ui/fruit_panel/box_opening/arrows"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("15_ssvqc")
+expand_mode = 1
+
+[node name="space" type="Control" parent="ui/fruit_panel/box_opening/arrows"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="right_arrow" type="TextureRect" parent="ui/fruit_panel/box_opening/arrows"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("15_ssvqc")
+expand_mode = 1
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ui/fruit_panel/box_opening/arrows"]
+libraries = {
+&"": SubResource("AnimationLibrary_1kice")
+}
+autoplay = "passive"
 
 [node name="health" type="ProgressBar" parent="ui"]
 anchors_preset = 10

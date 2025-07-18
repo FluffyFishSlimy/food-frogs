@@ -18,3 +18,6 @@ var fruit_count:int = 0
 @export var bullet_damage:float = 1
 @export var attack_speed:float = 1
 @export var bullet_peirce:bool = false
+@export var bullet_scale:float = 1
+@export var bullet_spread:float = 0
+@export var bullets_shot:int = 1

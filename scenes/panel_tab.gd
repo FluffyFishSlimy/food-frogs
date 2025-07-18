@@ -12,11 +12,12 @@ func _ready() -> void:
 	tab_name_label.scale = Vector2(0, 0)
 	self_modulate = Color('#ffffff')
 	data.tab_change.connect(tab_changed)
-	data.tab_change.emit()
+	#data.tab_change.emit()
 	data.update_tab_badge.connect(update_tab_badge)
 
 func update_tab_badge(tab_name_for_upt, show_badge):
-	if tab_name == tab_name_for_upt:
+	#print('Tab: ' + tab_name_for_upt + " badge: " + str(show_badge))
+	if tab_name == "Recipe Book":
 		if show_badge:
 			var t = create_tween().set_trans(Tween.TRANS_CIRC)
 			t.tween_property(badge, 'scale', Vector2(1, 1), 0.3)
@@ -28,7 +29,8 @@ func tab_changed():
 	self_modulate = Color('#ffffff')
 	if data.tab_selected == tab_name:
 		self_modulate = Color('#d0f0c2')
-	data.update_tab_badge.emit(tab_name, false)
+	if data.tab_selected == "Recipe Book":
+		data.update_tab_badge.emit(tab_name, false)
 
 func _on_mouse_entered() -> void:
 	var t = create_tween().set_trans(Tween.TRANS_CIRC)

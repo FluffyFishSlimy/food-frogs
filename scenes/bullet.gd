@@ -10,6 +10,7 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	body.take_damage(bullet_damge)
+	SoundManager.play_sound('tick', randf_range(0.8, 1.2), -10)
 	if bullet_peice == false:
 		queue_free()
 

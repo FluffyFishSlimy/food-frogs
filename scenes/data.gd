@@ -16,6 +16,7 @@ signal mix
 signal mixing_done
 signal update_tab_badge
 signal new_fruit_badge
+signal open_box
 
 var holding_fruit:bool = false
 var flag_pos:Vector2 = Vector2.ZERO
@@ -27,11 +28,12 @@ var tab_selected:String = 'Fruits'
 var mix_fruit:Fruit
 var mixing:bool = false
 var mix_mode:String = "Mix"
+var is_opening_box:bool = false
 
 enum cheat_type {ALL_FRUIT, ONLY_BASE_FRUIT, NONE}
 var debug_type = cheat_type.ONLY_BASE_FRUIT
 
-var coins:int = 10
+var coins:int = 1000
 var wave:int = 0
 var fruit_mixer_progress:int = 0
 
@@ -108,7 +110,8 @@ func most_fruit(a, b):
 	return false
 
 func _ready() -> void:
-	test_rand_weights()
+	#test_rand_weights()
+	pass
 
 #func _process(delta: float) -> void:
 	#pass

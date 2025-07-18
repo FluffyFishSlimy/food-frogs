@@ -18,6 +18,8 @@ var is_mini_recipe:bool = false
 @export var override_icon:CompressedTexture2D
 var new_fruit = false
 var bought = false
+@export var box_item:bool = false
+var is_box_reward:bool = false
 
 @onready var normal_cost_label = cost_price.label_settings.duplicate()
 @onready var disabled_cost_label = normal_cost_label.duplicate()
@@ -25,6 +27,9 @@ var bought = false
 func _ready() -> void:
 	if override_fruit:
 		fruit_type = override_fruit
+	
+	if box_item == true:
+		mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
 	
 	add_button_animations()
 	update_info(fruit_type)
@@ -42,8 +47,9 @@ func _ready() -> void:
 	
 	if is_recipe:
 		count.hide()
-		data.tab_change.connect(update_recipe_item)
-		data.new_fruit_badge.connect(show_badge)
+		if !box_item:
+			data.tab_change.connect(update_recipe_item)
+			data.new_fruit_badge.connect(show_badge)
 	
 	if is_shop_item:
 		if override_fruit == null:
@@ -56,8 +62,13 @@ func _ready() -> void:
 
 	disabled_cost_label.font_color = Color("#4b4b4b")
 	disabled_cost_label.outline_color = Color("#dddddd")
+	
+	if is_box_reward:
+		await get_tree().create_timer(0.3).timeout
+		mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _process(_delta: float) -> void:
+	
 	if is_shop_item:
 		if bought:
 			disabled = true
@@ -165,7 +176,16 @@ func button_released(button):
 		data.drag_stopped.emit()
 		data.holding_fruit = false
 	else:
-		if !is_big_display and !show_just_question_mark and !is_shop_item:
+		if is_box_reward:
+			data.is_opening_box = false
+			if fruit_type.has_been_discovered == false:
+				data.update_tab_badge.emit('Recipe Book', true)
+				data.new_fruit_badge.emit(fruit_type)
+			data.add_fruit_to_inv.emit(fruit_type)
+			if data.tab_selected == "Shop":
+				data.tab_selected = "Shop"
+				data.tab_change.emit()
+		if !is_big_display and !show_just_question_mark and !is_shop_item and !box_item:
 			if new_fruit:
 				new_fruit = false
 				var t2 = create_tween().set_trans(Tween.TRANS_CIRC)
@@ -190,6 +210,10 @@ func button_released(button):
 			
 			if is_big_display == false:
 				data.add_fruit_to_inv.emit(fruit_type)
+				
+			if is_big_display:
+				data.is_opening_box = true
+				data.open_box.emit()
 			
 			SoundManager.play_sound("buy", randf_range(0.8, 1.2), 0)
 			

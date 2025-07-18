@@ -1,10 +1,14 @@
 extends Node2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var speed = 300
 var collected = false
 
 func _ready() -> void:
 	rotation_degrees = randi_range(0, 360)
+	animation_player.play("spawn")
+	await animation_player.animation_finished
+	animation_player.play("passive")
 
 func _physics_process(delta: float) -> void:
 	if global_position.distance_to(get_global_mouse_position()) < 70:
