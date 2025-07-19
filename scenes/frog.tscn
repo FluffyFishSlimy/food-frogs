@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://b68apv0173h4i"]
+[gd_scene load_steps=16 format=3 uid="uid://b68apv0173h4i"]
 
 [ext_resource type="Script" uid="uid://bgu6hdfe1nxld" path="res://scenes/frog.gd" id="1_mqod6"]
 [ext_resource type="Texture2D" uid="uid://ccrgjgqnvkmjq" path="res://assets/frog_outline.png" id="2_qyo2l"]
+[ext_resource type="Texture2D" uid="uid://blsg0vsye70gm" path="res://assets/frog_outline_rainbow.png" id="3_rq8tc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g2vb"]
 bg_color = Color(0.776471, 0.776471, 0.776471, 1)
@@ -61,6 +62,45 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qyo2l"]
 radius = 1718.13
+
+[sub_resource type="Animation" id="Animation_qyo2l"]
+resource_name = "rainbow"
+length = 0.9
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("frog_sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.230469, 0.230469, 1), Color(1, 0.75351, 0.230469, 1), Color(0.993988, 1, 0.230469, 1), Color(0.525055, 1, 0.230469, 1), Color(0.230469, 1, 0.549103, 1), Color(0.230469, 1, 0.945892, 1), Color(0.230469, 0.549103, 1, 1), Color(0.597198, 0.230469, 1, 1), Color(0.993988, 0.230469, 1, 1), Color(1, 0.230469, 0.230469, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rq8tc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("frog_sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.752941, 0.752941, 0.752941, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rq8tc"]
+_data = {
+&"RESET": SubResource("Animation_rq8tc"),
+&"rainbow": SubResource("Animation_qyo2l")
+}
 
 [node name="Frog" type="Control"]
 custom_minimum_size = Vector2(80, 80)
@@ -495,6 +535,25 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qyo2l")
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(5, 4, 74, 5, 74, 75, 2, 75)
 
+[node name="outline_rainbow" type="TextureRect" parent="."]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.145, 2.145)
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+texture = ExtResource("3_rq8tc")
+expand_mode = 1
+
 [node name="outline" type="TextureRect" parent="."]
 self_modulate = Color(0, 1, 0.109375, 1)
 show_behind_parent = true
@@ -543,6 +602,12 @@ wait_time = 3.0
 
 [node name="close_mouth" type="Timer" parent="."]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rq8tc")
+}
+speed_scale = 0.2
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

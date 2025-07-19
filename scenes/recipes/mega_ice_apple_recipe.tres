@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=4 format=3 uid="uid://ch1owe0o4k5qw"]
+
+[ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_o8i8q"]
+[ext_resource type="Script" uid="uid://dp2olq01sth84" path="res://scenes/recipes/recipe.gd" id="2_cu08t"]
+[ext_resource type="Resource" uid="uid://bnwop3ddqynfn" path="res://scenes/fruits/ice_apple.tres" id="2_wbs66"]
+
+[resource]
+script = ExtResource("2_cu08t")
+fruits_needed = Array[ExtResource("1_o8i8q")]([ExtResource("2_wbs66"), ExtResource("2_wbs66"), ExtResource("2_wbs66")])
+metadata/_custom_type_script = "uid://dp2olq01sth84"

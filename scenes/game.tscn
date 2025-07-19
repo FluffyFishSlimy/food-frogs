@@ -555,7 +555,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("11_ir15t")
-text = "Back"
+text = "Close"
 
 [node name="shop" type="Control" parent="ui/fruit_panel"]
 visible = false
@@ -618,6 +618,14 @@ layout_mode = 2
 is_shop_item = true
 
 [node name="fruit_item4" parent="ui/fruit_panel/shop/VBoxContainer/item_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+is_shop_item = true
+
+[node name="fruit_item5" parent="ui/fruit_panel/shop/VBoxContainer/item_container" instance=ExtResource("6_p57ef")]
+layout_mode = 2
+is_shop_item = true
+
+[node name="fruit_item6" parent="ui/fruit_panel/shop/VBoxContainer/item_container" instance=ExtResource("6_p57ef")]
 layout_mode = 2
 is_shop_item = true
 

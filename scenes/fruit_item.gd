@@ -52,7 +52,7 @@ func _ready() -> void:
 			data.new_fruit_badge.connect(show_badge)
 	
 	if is_shop_item:
-		if override_fruit == null:
+		if override_fruit == null:	
 			fruit_type = data.get_rand_fruit_weighted()
 		if override_fruit == null:
 			if fruit_type.level == -1:

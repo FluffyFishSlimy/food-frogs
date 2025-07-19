@@ -11,6 +11,8 @@ extends Control
 @onready var fruit_belly_icon: TextureRect = $frog_sprite/belly/fruit_icon
 @onready var frog_sprite: Control = $frog_sprite
 @onready var close_mouth: Timer = $close_mouth
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var rainbow_outline: TextureRect = $outline_rainbow
 
 @export var is_hidden:bool = false
 @export var hover_outline:bool = true
@@ -29,6 +31,8 @@ var attack_speed = 1
 var fruit_eaten:Fruit
 
 func _ready() -> void:
+	frog_sprite.modulate = Color("#c0c0c0")
+	
 	if is_hidden:
 		modulate.a = 0
 		for child in get_children():
@@ -114,6 +118,16 @@ func check_if_on_frog():
 		data.remove_fruit_from_inv.emit(fruit_eaten)
 		
 		# apply food
+		if fruit_eaten.is_rainbow:
+			animation_player.play("rainbow")
+			if fruit_eaten.show_rainbow_outline:
+				rainbow_outline.show()
+			else:
+				rainbow_outline.hide()
+		else:
+			animation_player.stop()
+			rainbow_outline.hide()
+			
 		frog_sprite.modulate = fruit_eaten.frog_color
 		fruit_belly_icon.texture = fruit_eaten.belly_icon
 		shoot_timer.start(fruit_eaten.attack_speed)

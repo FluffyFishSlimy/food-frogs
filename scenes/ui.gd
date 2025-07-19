@@ -202,14 +202,16 @@ func chage_tabs():
 	shop_stuff.hide()
 	box_opening.hide()
 	scroll_container.size.y = 368 # 580 
-	scroll_container.scroll_vertical = 0
+	scroll_container.scroll_vertical = 15
 	
 	# Show the selected Tab
 	if data.tab_selected == "Fruits":
+		scroll_container.scroll_vertical = 15
 		fruit_container.show()
 		lab_stuff.show()
 		scroll_container.size.y = 368
 	if data.tab_selected == "Recipe Book":
+		scroll_container.scroll_vertical = 15
 		
 		if recipes_open:
 			recipe_info.show()

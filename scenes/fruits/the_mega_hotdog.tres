@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Fruit" load_steps=9 format=3 uid="uid://bynvdyv5bnhfu"]
+
+[ext_resource type="Texture2D" uid="uid://0no2mwnf3mwk" path="res://assets/fruits/The Mega Hot Dog.png" id="1_p5qc0"]
+[ext_resource type="Texture2D" uid="uid://dtvbjb17emuo6" path="res://assets/inf_icon.png" id="1_pur1c"]
+[ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_yrr7c"]
+[ext_resource type="Resource" uid="uid://jw8714nlcf8t" path="res://scenes/fruits/acid_flask.tres" id="4_pur1c"]
+[ext_resource type="Resource" uid="uid://d0ys8f5810wyc" path="res://scenes/fruits/rubber_waffle.tres" id="5_6rgme"]
+[ext_resource type="Resource" uid="uid://dk5un7r5eovfv" path="res://scenes/fruits/poison_rice.tres" id="6_2ply4"]
+[ext_resource type="Script" uid="uid://dp2olq01sth84" path="res://scenes/recipes/recipe.gd" id="6_b0ihc"]
+
+[sub_resource type="Resource" id="Resource_2ply4"]
+script = ExtResource("6_b0ihc")
+fruits_needed = Array[ExtResource("1_yrr7c")]([ExtResource("4_pur1c"), ExtResource("5_6rgme"), ExtResource("6_2ply4")])
+metadata/_custom_type_script = "uid://dp2olq01sth84"
+
+[resource]
+script = ExtResource("1_yrr7c")
+name = "The Mega Hotdog"
+desc = "Fruit Description"
+fruit_sprite = ExtResource("1_p5qc0")
+frog_color = Color(0, 0, 0, 1)
+is_rainbow = true
+show_rainbow_outline = false
+belly_icon = ExtResource("1_pur1c")
+cost = 5
+has_been_discovered = false
+recipe_to_make = SubResource("Resource_2ply4")
+bullet_speed = 600
+bullet_damage = 1.0
+attack_speed = 1.0
+bullet_peirce = false
+bullet_scale = 1.0
+bullet_spread = 0.0
+bullets_shot = 1
+metadata/_custom_type_script = "uid://bie4uo18q168e"

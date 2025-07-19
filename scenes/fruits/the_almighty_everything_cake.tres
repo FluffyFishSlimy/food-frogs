@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="Fruit" load_steps=8 format=3 uid="uid://csrhn1tv5ev60"]
+
+[ext_resource type="Texture2D" uid="uid://dtvbjb17emuo6" path="res://assets/inf_icon.png" id="1_4a5p1"]
+[ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_fqvy2"]
+[ext_resource type="Texture2D" uid="uid://ds24fmwqr8bf1" path="res://assets/fruits/The Almighty Everything Cake.png" id="1_nnmym"]
+[ext_resource type="Resource" uid="uid://bynvdyv5bnhfu" path="res://scenes/fruits/the_mega_hotdog.tres" id="4_2eoy8"]
+[ext_resource type="Resource" uid="uid://bumrjagq770gr" path="res://scenes/fruits/giga_candy_cane_laser.tres" id="4_4a5p1"]
+[ext_resource type="Script" uid="uid://dp2olq01sth84" path="res://scenes/recipes/recipe.gd" id="5_rbmu3"]
+
+[sub_resource type="Resource" id="Resource_k4fw3"]
+script = ExtResource("5_rbmu3")
+fruits_needed = Array[ExtResource("1_fqvy2")]([ExtResource("4_4a5p1"), ExtResource("4_4a5p1"), ExtResource("4_4a5p1"), ExtResource("4_2eoy8"), ExtResource("4_2eoy8"), ExtResource("4_2eoy8")])
+metadata/_custom_type_script = "uid://dp2olq01sth84"
+
+[resource]
+script = ExtResource("1_fqvy2")
+name = "The Almighty Everything Cake"
+desc = "Fruit Description"
+fruit_sprite = ExtResource("1_nnmym")
+frog_color = Color(0, 0, 0, 1)
+is_rainbow = true
+show_rainbow_outline = true
+belly_icon = ExtResource("1_4a5p1")
+cost = 5
+has_been_discovered = false
+recipe_to_make = SubResource("Resource_k4fw3")
+bullet_speed = 600
+bullet_damage = 1.0
+attack_speed = 1.0
+bullet_peirce = false
+bullet_scale = 1.0
+bullet_spread = 0.0
+bullets_shot = 1
+metadata/_custom_type_script = "uid://bie4uo18q168e"

@@ -31,7 +31,7 @@ var mix_mode:String = "Mix"
 var is_opening_box:bool = false
 
 enum cheat_type {ALL_FRUIT, ONLY_BASE_FRUIT, NONE}
-var debug_type = cheat_type.ONLY_BASE_FRUIT
+var debug_type = cheat_type.ALL_FRUIT
 
 var coins:int = 1000
 var wave:int = 0
@@ -44,7 +44,24 @@ var fruits = [
 	load("res://scenes/fruits/dark_matter_lemon.tres"),
 	load("res://scenes/fruits/laser_egg.tres"),
 	load("res://scenes/fruits/necro_bone.tres"),
-	load("res://scenes/fruits/mega_fire_pepper.tres")
+	load("res://scenes/fruits/mega_fire_pepper.tres"),
+	load("res://scenes/fruits/mega_ice_apple.tres"),
+	load("res://scenes/fruits/mega_electro_carrot.tres"),
+	load("res://scenes/fruits/bouncy_bread.tres"),
+	load("res://scenes/fruits/cookie_crumbs.tres"),
+	load("res://scenes/fruits/the_mega_hotdog.tres"),
+	load("res://scenes/fruits/the_almighty_everything_cake.tres"),
+	load("res://scenes/fruits/magma_burger_mortor.tres"),
+	load("res://scenes/fruits/poison_rice.tres"),
+	load("res://scenes/fruits/homing_jar.tres"),
+	load("res://scenes/fruits/hydra_bacon_laser.tres"),
+	load("res://scenes/fruits/magma_pizza_laser.tres"),
+	load("res://scenes/fruits/photon_cheese_laser.tres"),
+	load("res://scenes/fruits/acid_flask.tres"),
+	load("res://scenes/fruits/rubber_waffle.tres"),
+	load("res://scenes/fruits/exploading_mug.tres"),
+	load("res://scenes/fruits/giga_candy_cane_laser.tres"),
+	load('res://scenes/fruits/hyper_icecream.tres')
 ]
 
 var fruits_in_mixer: Array[Fruit] = []
@@ -113,7 +130,12 @@ func most_fruit(a, b):
 
 func _ready() -> void:
 	#test_rand_weights()
-	pass
+	fruits.sort_custom(fruit_level_sort)
+
+func fruit_level_sort(a, b):
+	if find_fruit_level(a) < find_fruit_level(b):
+		return true
+	return false
 
 #func _process(delta: float) -> void:
 	#pass

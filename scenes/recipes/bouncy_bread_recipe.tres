@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=5 format=3 uid="uid://bv2kwqc8um35y"]
+
+[ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_8d5jq"]
+[ext_resource type="Resource" uid="uid://bhqaog81uk24m" path="res://scenes/fruits/mega_fire_pepper.tres" id="2_1kcqg"]
+[ext_resource type="Script" uid="uid://dp2olq01sth84" path="res://scenes/recipes/recipe.gd" id="2_c7jt6"]
+[ext_resource type="Resource" uid="uid://bnwop3ddqynfn" path="res://scenes/fruits/ice_apple.tres" id="3_tr1ec"]
+
+[resource]
+script = ExtResource("2_c7jt6")
+fruits_needed = Array[ExtResource("1_8d5jq")]([ExtResource("2_1kcqg"), ExtResource("3_tr1ec"), ExtResource("3_tr1ec")])
+metadata/_custom_type_script = "uid://dp2olq01sth84"

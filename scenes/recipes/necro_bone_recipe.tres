@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_tkktl"]
 [ext_resource type="Resource" uid="uid://dhm5276fxa6hj" path="res://scenes/fruits/fire_pepper.tres" id="2_hi03q"]
 [ext_resource type="Script" uid="uid://dp2olq01sth84" path="res://scenes/recipes/recipe.gd" id="2_nxvb7"]
-[ext_resource type="Resource" uid="uid://0hputrg6h476" path="res://scenes/fruits/electro_carrot.tres" id="3_lw3uo"]
+[ext_resource type="Resource" uid="uid://561087ra0rwv" path="res://scenes/fruits/mega_electro_carrot.tres" id="3_hi03q"]
 
 [resource]
 script = ExtResource("2_nxvb7")
-fruits_needed = Array[ExtResource("1_tkktl")]([ExtResource("2_hi03q"), ExtResource("2_hi03q"), ExtResource("3_lw3uo"), ExtResource("3_lw3uo"), ExtResource("3_lw3uo"), ExtResource("3_lw3uo")])
+fruits_needed = Array[ExtResource("1_tkktl")]([ExtResource("2_hi03q"), ExtResource("2_hi03q"), ExtResource("3_hi03q")])
 metadata/_custom_type_script = "uid://dp2olq01sth84"

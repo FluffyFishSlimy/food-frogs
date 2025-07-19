@@ -6,5 +6,5 @@
 
 [resource]
 script = ExtResource("3_ay2o8")
-fruits_needed = Array[ExtResource("1_4437u")]([ExtResource("2_mfuw5"), ExtResource("2_mfuw5"), ExtResource("2_mfuw5"), ExtResource("2_mfuw5")])
+fruits_needed = Array[ExtResource("1_4437u")]([ExtResource("2_mfuw5"), ExtResource("2_mfuw5"), ExtResource("2_mfuw5")])
 metadata/_custom_type_script = "uid://dp2olq01sth84"

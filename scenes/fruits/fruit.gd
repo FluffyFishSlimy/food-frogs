@@ -7,6 +7,8 @@ extends Resource
 var level:int = -1
 @export var fruit_sprite:CompressedTexture2D
 @export var frog_color:Color
+@export var is_rainbow:bool = false
+@export var show_rainbow_outline:bool = false
 @export var belly_icon:CompressedTexture2D
 @export var cost:int = 5
 @export var has_been_discovered:bool = false
