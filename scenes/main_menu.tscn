@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqee3y63gjrl3"]
+[gd_scene load_steps=20 format=3 uid="uid://dqee3y63gjrl3"]
 
 [ext_resource type="Shader" uid="uid://dyxgo12ctlf7c" path="res://assets/scroll.gdshader" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://47knc0g2a078" path="res://scenes/main_menu.gd" id="1_wu84c"]
@@ -100,6 +100,27 @@ _data = {
 &"close": SubResource("Animation_oa1go")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tbmy8"]
+line_spacing = 1.0
+font = ExtResource("3_wu84c")
+font_size = 15
+font_color = Color(0.236816, 0.757813, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.235294, 0.756863, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [node name="main_menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -186,6 +207,7 @@ text = "Credits"
 
 [node name="quit" type="Button" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 offset_left = 65.0
 offset_top = 528.0
@@ -265,6 +287,121 @@ libraries = {
 &"": SubResource("AnimationLibrary_jk1qb")
 }
 
+[node name="credits_page" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_8ln24")
+theme_override_styles/panel = SubResource("StyleBoxFlat_oa1go")
+
+[node name="title" type="Label" parent="credits_page"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -314.0
+offset_right = 320.0
+offset_bottom = -175.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 69)
+mouse_filter = 0
+text = "Credits"
+label_settings = SubResource("LabelSettings_bqqt6")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="credits_page/title"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_oa1go")
+}
+autoplay = "strech"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="credits_page"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = 158.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="text" type="Label" parent="credits_page/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "All Code by FluffyFish Dev
+
+Icons from photopea were modified by FluffyFish Dev
+
+DynaPuff Font from Google Fonts
+
+All sound effects and music are from free sound
+
+Button Click: unfa (https://freesound.org/people/unfa/sounds/245645/)
+
+Button Hover: qubodup (https://freesound.org/people/qubodup/sounds/159698/)
+
+Eating Sounds:
+
+\"Eat\": TheDragonsSpark (https://freesound.org/people/TheDragonsSpark/sounds/543386/)
+
+\"Eat2\": PaulMorek (https://freesound.org/people/PaulMorek/sounds/172138/)
+
+Squeak Sounds:
+
+\"Squeak1\": propthis (https://freesound.org/people/propthis/sounds/24731/)
+
+\"Squeak2\": DANMITCH3LL (https://freesound.org/people/DANMITCH3LL/sounds/232017/)
+
+Pop Sounds:
+
+\"Pop1\": MATRIXXX_ (https://freesound.org/people/MATRIXXX_/sounds/506546/)
+
+\"Pop2\": MATRIXXX_ (https://freesound.org/people/MATRIXXX_/sounds/506545/)
+
+Main Menu Music: Mrthenoronha (https://freesound.org/people/Mrthenoronha/sounds/529290/)
+
+Game Music: Mrthenoronha (https://freesound.org/people/Mrthenoronha/sounds/514878/)
+
+Water Plop: velkstar (https://freesound.org/people/velkstar/sounds/425209/)
+
+Mixer Ding: InspectorJ (https://freesound.org/people/InspectorJ/sounds/484344/)
+
+Mixing Sound: JavierZumer (https://freesound.org/people/JavierZumer/sounds/257229/)
+
+Purchase Sound: CapsLok (https://freesound.org/people/CapsLok/sounds/184438/)
+
+Enemy Hit: KorgMS2000B (https://freesound.org/people/KorgMS2000B/sounds/54405/)
+
+Laser Sound: powerbigsplash (https://freesound.org/people/powerbigsplash/sounds/525042/)
+
+Boing Sound: davidou (https://freesound.org/people/davidou/sounds/88451/)
+
+Explosion: qubodup (https://freesound.org/people/qubodup/sounds/714257/)
+
+Splat Sound: Breviceps (https://freesound.org/people/Breviceps/sounds/445109/)"
+label_settings = SubResource("LabelSettings_tbmy8")
+
+[node name="back" type="Button" parent="credits_page"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 549.0
+offset_right = 215.0
+offset_bottom = 626.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_tbmy8")
+text = "Back"
+
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
 [connection signal="timeout" from="button_rotate" to="." method="_on_button_rotate_timeout"]
+[connection signal="pressed" from="credits_page/back" to="." method="_on_back_pressed"]

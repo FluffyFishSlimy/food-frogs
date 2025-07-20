@@ -1,0 +1,109 @@
+[gd_scene load_steps=7 format=3 uid="uid://ud6v7xy5xvjd"]
+
+[ext_resource type="Script" uid="uid://dhdv3lj3rtmln" path="res://scenes/laser.gd" id="1_xmihv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkf8s"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 500
+corner_radius_top_right = 500
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmihv"]
+size = Vector2(1535, 20)
+
+[sub_resource type="Animation" id="Animation_a7dhc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0.06)]
+}
+
+[sub_resource type="Animation" id="Animation_xmihv"]
+resource_name = "open"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 0.06), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a7dhc"]
+_data = {
+&"RESET": SubResource("Animation_a7dhc"),
+&"open": SubResource("Animation_xmihv")
+}
+
+[node name="laser" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_xmihv")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0.867188, 0.867188, 0.867188, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 1539.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.06)
+pivot_offset = Vector2(777, 15)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mkf8s")
+
+[node name="inner_layer" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 1539.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.3)
+pivot_offset = Vector2(777, 15)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mkf8s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(757.5, 0)
+shape = SubResource("RectangleShape2D_xmihv")
+
+[node name="timeout" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a7dhc")
+}
+autoplay = "open"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="timeout" to="." method="_on_timeout_timeout"]

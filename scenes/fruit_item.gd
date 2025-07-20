@@ -54,11 +54,12 @@ func _ready() -> void:
 	if is_shop_item:
 		if override_fruit == null:	
 			fruit_type = data.get_rand_fruit_weighted()
+			#fruit_type = data.fruits[23]
 		if override_fruit == null:
 			if fruit_type.level == -1:
 				fruit_type.level = data.find_fruit_level(fruit_type)
-			fruit_type.cost = (fruit_type.level) * 5
-		cost_price.text = "¢" + str(fruit_type.cost)
+			fruit_type.cost = int(pow(fruit_type.level, 1.5) * 20)
+		cost_price.text = "¢" + data.format_number_with_commas(fruit_type.cost)
 
 	disabled_cost_label.font_color = Color("#4b4b4b")
 	disabled_cost_label.outline_color = Color("#dddddd")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://kxhedlhel8d8"]
+[gd_scene load_steps=8 format=3 uid="uid://kxhedlhel8d8"]
 
 [ext_resource type="Script" uid="uid://dme1v8eechdlf" path="res://scenes/bullet.gd" id="1_mkf8s"]
 
@@ -12,7 +12,50 @@ corner_radius_top_right = 500
 corner_radius_bottom_right = 500
 corner_radius_bottom_left = 500
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_mkf8s"]
+radius = 1718.13
+
+[sub_resource type="Animation" id="Animation_mkf8s"]
+resource_name = "scale"
+length = 0.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_y25gk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5glv"]
+_data = {
+&"RESET": SubResource("Animation_y25gk"),
+&"scale": SubResource("Animation_mkf8s")
+}
+
 [node name="bullet" type="Area2D"]
+modulate = Color(1, 0, 0, 1)
 collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_mkf8s")
@@ -22,6 +65,8 @@ shape = SubResource("CircleShape2D_h1aey")
 
 [node name="timeout" type="Timer" parent="."]
 wait_time = 8.0
+one_shot = true
+autostart = true
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 8
@@ -35,7 +80,30 @@ offset_right = 15.0
 offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mkf8s")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="enemy_detect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_detect"]
+visible = false
+shape = SubResource("CircleShape2D_mkf8s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="enemy_detect"]
+libraries = {
+&"": SubResource("AnimationLibrary_l5glv")
+}
+
+[node name="puddle_timer" type="Timer" parent="."]
+wait_time = 0.1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="timeout" to="." method="_on_timeout_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="enemy_detect" to="." method="_on_enemy_detect_body_entered"]
+[connection signal="timeout" from="puddle_timer" to="." method="_on_puddle_timer_timeout"]

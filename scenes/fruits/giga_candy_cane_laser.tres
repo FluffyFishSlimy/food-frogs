@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Fruit" load_steps=9 format=3 uid="uid://bumrjagq770gr"]
+[gd_resource type="Resource" script_class="Fruit" load_steps=10 format=3 uid="uid://bumrjagq770gr"]
 
 [ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="1_btks3"]
 [ext_resource type="Texture2D" uid="uid://j7j316wqkcxy" path="res://assets/laser_actual_icon.png" id="1_svvc1"]
+[ext_resource type="PackedScene" uid="uid://ud6v7xy5xvjd" path="res://scenes/laser.tscn" id="2_c6bsh"]
 [ext_resource type="Texture2D" uid="uid://dvkm6cjbkpi2q" path="res://assets/fruits/giga_candy_cane_laser.png" id="2_g4tip"]
 [ext_resource type="Resource" uid="uid://nbbcb6jw4lw5" path="res://scenes/fruits/hydra_bacon_laser.tres" id="4_c6bsh"]
 [ext_resource type="Resource" uid="uid://cu14i83fa8tww" path="res://scenes/fruits/magma_pizza_laser.tres" id="5_23abj"]
@@ -16,7 +17,7 @@ metadata/_custom_type_script = "uid://dp2olq01sth84"
 [resource]
 script = ExtResource("1_btks3")
 name = "Giga Candy Cane Laser"
-desc = "Fruit Description"
+desc = "Rapid fire shoots 3 lasers that are strong"
 fruit_sprite = ExtResource("2_g4tip")
 frog_color = Color(0.957031, 0.721512, 0.721512, 1)
 is_rainbow = false
@@ -27,9 +28,16 @@ has_been_discovered = false
 recipe_to_make = SubResource("Resource_mgix6")
 bullet_speed = 600
 bullet_damage = 1.0
-attack_speed = 1.0
+attack_speed = 0.2
 bullet_peirce = false
-bullet_scale = 1.0
-bullet_spread = 0.0
-bullets_shot = 1
+bullet_scale = 2.0
+bullet_spread = 10.0
+bullets_shot = 3
+bounces = 0
+homing = false
+exploads = false
+leaves_puddles = false
+puddle_dmg = 1.0
+puddle_color = Color(1, 1, 1, 1)
+bullet_scene = Array[PackedScene]([ExtResource("2_c6bsh")])
 metadata/_custom_type_script = "uid://bie4uo18q168e"

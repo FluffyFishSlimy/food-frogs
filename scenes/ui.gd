@@ -17,10 +17,13 @@ extends CanvasLayer
 @onready var recipe_guide: GridContainer = $fruit_panel/recipe_info/VBoxContainer/recipe_guide
 @onready var made_with: Label = $fruit_panel/recipe_info/VBoxContainer/made_with
 @onready var shop_stuff: Control = $fruit_panel/shop
-@onready var coins_num: Label = $stats_container/coins_panel/HBoxContainer/coins_num
-@onready var coins_panel: Panel = $stats_container/coins_panel
+@onready var coins_num: Label = $stats_container/coins_num
+@onready var coins_panel: = coins_num
 @onready var box_opening: Control = $fruit_panel/box_opening
 @onready var scroll_wheel: VBoxContainer = $fruit_panel/box_opening/scroll_wheel_clip/scroll_wheel
+@onready var next_wave: Button = $next_wave
+@onready var wave_num: Label = $stats_container/wave_num
+@onready var shop_item_container: GridContainer = $fruit_panel/shop/VBoxContainer/item_container
 
 @onready var fruit_item = preload("res://scenes/fruit_item.tscn")
 
@@ -40,6 +43,8 @@ func _ready() -> void:
 	data.mixing_done.connect(update_recipe_info)
 	data.coin_picked_up.connect(bump_coin_counter)
 	data.open_box.connect(open_box)
+	data.spawn_coin.connect(check_if_wave_over)
+	data.next_wave.connect(refresh_shop)
 	
 	# Manually add in some fruits
 	if data.debug_type== data.cheat_type.ALL_FRUIT:
@@ -51,6 +56,10 @@ func _ready() -> void:
 			data.add_fruit_to_inv.emit(data.fruits[0])
 			data.add_fruit_to_inv.emit(data.fruits[1])
 			data.add_fruit_to_inv.emit(data.fruits[2])
+	if data.debug_type == data.cheat_type.DEFAULT:
+		data.add_fruit_to_inv.emit(data.fruits[0])
+		data.add_fruit_to_inv.emit(data.fruits[1])
+		data.add_fruit_to_inv.emit(data.fruits[2])
 	
 	# Add recipies
 	for fruit in data.fruits:
@@ -58,6 +67,24 @@ func _ready() -> void:
 		new_fruit_item.fruit_type = fruit
 		new_fruit_item.is_recipe = true
 		recipe_container.add_child(new_fruit_item)
+
+func refresh_shop():
+	for c in shop_item_container.get_children():
+		c.queue_free()
+	
+	for i in range(6):
+		var new_shop_item = fruit_item.instantiate()
+		new_shop_item.is_shop_item = true
+		shop_item_container.add_child(new_shop_item)
+		new_shop_item.update_info(new_shop_item.fruit_type)
+
+func check_if_wave_over(pos, value):
+	if data.enemy_count <= 0:
+		var t = create_tween().set_trans(Tween.TRANS_CIRC)
+		data.next_wave_pressed = false
+		data.wave_beat.emit()
+		next_wave.disabled = false
+		t.tween_property(next_wave, "scale", Vector2(1, 1), 0.5)
 
 func add_fruit_to_inv(fruit):
 	fruit.has_been_discovered = true
@@ -227,13 +254,15 @@ func chage_tabs():
 func _physics_process(_delta: float) -> void:
 	health_bar.value = lerp(health_bar.value, data.health, 0.2)
 	percentage.text = "Health: " + str(clamp(int(round(data.health)), 0, 100)) + "%"
-	coins_num.text = "¢" + str(data.coins)
+	coins_num.text = "¢" + data.format_number_with_commas(data.coins)
+	wave_num.text = "Wave " + str(data.wave+1)
 	
 func add_button_animations():
 	var buttons = [
 		settings_button,
 		mix_btn,
-		back_btn
+		back_btn,
+		next_wave
 	]
 	for button in buttons:
 		button.pivot_offset = Vector2(button.size.x/2, button.size.y/2)
@@ -285,8 +314,10 @@ func _on_button_rotate_timeout() -> void:
 
 func _on_back_btn_pressed() -> void:
 	recipes_open = false
-	recipe_container.show()
-	recipe_info.hide()
+	data.tab_selected = 'Recipe Book'
+	data.tab_change.emit()
+	#recipe_container.show()
+	#recipe_info.hide()
 
 func _on_mix_btn_button_up() -> void:
 	if data.mixing == false:
@@ -294,3 +325,12 @@ func _on_mix_btn_button_up() -> void:
 		data.mix.emit()
 		data.mixer_updated.emit()
 		data.mixer_able_to_mix.emit(false, null)
+
+
+#func _on_next_wave_mouse_entered() -> void:
+	#if data.holding_fruit:
+		#next_wave.modulate.a = 0.3
+		#next_wave.mouse_filter = Control.MOUSE_FILTER_IGNORE
+#
+#func _on_next_wave_mouse_exited() -> void:
+	#next_wave.modulate.a = 1

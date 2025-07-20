@@ -5,6 +5,8 @@ extends Control
 @onready var title: Label = $title
 @onready var transition_animation: AnimationPlayer = $transition/transition_animation
 @onready var credits: Button = %credits
+@onready var credits_page: Panel = $credits_page
+@onready var back: Button = $credits_page/back
 
 var wiggle_button_object = null
 var start_pressed = false
@@ -12,13 +14,15 @@ var start_pressed = false
 func _ready() -> void:
 	add_button_animations()
 	title.pivot_offset = Vector2(title.size.x/2, title.size.y/2)
-
+	if OS.get_name() != "Web": quit.show()
+	
 func add_button_animations():
 	var buttons = [
 		play,
 		settings,
 		quit,
-		credits
+		credits,
+		back
 	]
 	for button in buttons:
 		button.pivot_offset = Vector2(button.size.x/2, button.size.y/2)
@@ -62,3 +66,9 @@ func _on_play_pressed() -> void:
 		transition_animation.play("close")
 		await transition_animation.animation_finished
 		get_tree().change_scene_to_file("res://scenes/game.tscn")
+
+func _on_back_pressed() -> void:
+	credits_page.hide()
+
+func _on_credits_pressed() -> void:
+	credits_page.show()

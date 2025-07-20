@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://xuieqplta6f4"]
+[gd_scene load_steps=21 format=3 uid="uid://xuieqplta6f4"]
 
 [ext_resource type="Script" uid="uid://co0bsmgra58hb" path="res://scenes/sound_manager.gd" id="1_gbdfy"]
 [ext_resource type="AudioStream" uid="uid://5yxfh5vwol2k" path="res://assets/sfx/button_hover.wav" id="2_shlr6"]
@@ -16,6 +16,10 @@
 [ext_resource type="AudioStream" uid="uid://j6oyd462lx6w" path="res://assets/sfx/mix.wav" id="14_s8vuo"]
 [ext_resource type="AudioStream" uid="uid://d4es3emub1hw8" path="res://assets/sfx/buy.wav" id="15_wcfih"]
 [ext_resource type="AudioStream" uid="uid://ctck5spweqj26" path="res://assets/sfx/tick.wav" id="16_laeq7"]
+[ext_resource type="AudioStream" uid="uid://c4fy3d63twmgh" path="res://assets/sfx/laser.mp3" id="17_mj6ls"]
+[ext_resource type="AudioStream" uid="uid://bjjvcx82465k3" path="res://assets/sfx/boing.wav" id="18_6a7a8"]
+[ext_resource type="AudioStream" uid="uid://df76s36ijr3fd" path="res://assets/sfx/exploasion.wav" id="19_yr0f0"]
+[ext_resource type="AudioStream" uid="uid://csog8r3d4cupa" path="res://assets/sfx/445109__breviceps__mud-splat.wav" id="20_ki6rk"]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_gbdfy")
@@ -87,5 +91,25 @@ bus = &"SFX"
 
 [node name="tick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_laeq7")
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="laser" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_mj6ls")
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="boing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_6a7a8")
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="exploasion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_yr0f0")
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="splat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_ki6rk")
 max_polyphony = 2
 bus = &"SFX"

@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://baj2b0vu0r44o"]
+[gd_scene load_steps=11 format=3 uid="uid://dlula2iq5ly7f"]
 
-[ext_resource type="Script" uid="uid://o27bhj4tc3to" path="res://scenes/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://o27bhj4tc3to" path="res://scenes/enemies/enemy.gd" id="1_nnck1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7p1mj"]
 bg_color = Color(0.54, 0.54, 0.54, 0.878431)
@@ -9,8 +9,8 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tegq"]
-bg_color = Color(0.359375, 0.244844, 0.110901, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nnck1"]
+bg_color = Color(0.0742188, 0.0734169, 0.0724792, 1)
 border_color = Color(0.265625, 0.17905, 0.0809326, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
@@ -148,10 +148,15 @@ _data = {
 
 [node name="enemy" type="CharacterBody2D"]
 z_index = 2
+scale = Vector2(1.5, 1.5)
 collision_layer = 2
 collision_mask = 10
 motion_mode = 1
-script = ExtResource("1_7p1mj")
+script = ExtResource("1_nnck1")
+speed = 20
+damage = 2
+health = 5
+coin_value = 2
 
 [node name="wing_left" type="Panel" parent="."]
 offset_left = 8.0
@@ -182,13 +187,15 @@ offset_bottom = 9.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8tegq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nnck1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_7p1mj")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+process_mode = 4
+simplify_path = true
 
 [node name="pathfind" type="Timer" parent="."]
 wait_time = 0.5

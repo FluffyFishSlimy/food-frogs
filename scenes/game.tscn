@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bj0om0i4qbp7j" path="res://assets/coin.png" id="7_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://qvoskuuxn0kd" path="res://scenes/flag.tscn" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dplyalhrc2i8b" path="res://assets/fruit_icon.png" id="8_dinhu"]
-[ext_resource type="PackedScene" uid="uid://baj2b0vu0r44o" path="res://scenes/enemy.tscn" id="8_gee14"]
 [ext_resource type="Texture2D" uid="uid://c0a2ce28f5r7p" path="res://assets/book.png" id="8_trtic"]
 [ext_resource type="Theme" uid="uid://cb266ecfib6xp" path="res://assets/main_theme.tres" id="11_ir15t"]
 [ext_resource type="Texture2D" uid="uid://c688ndkw7wbxc" path="res://assets/gear_icon.png" id="12_trtic"]
@@ -106,6 +105,21 @@ font_size = 25
 font_color = Color(0.236816, 0.757813, 0, 1)
 outline_size = 30
 
+[sub_resource type="Animation" id="Animation_264po"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("space:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ssvqc"]
 resource_name = "passive"
 length = 0.6
@@ -122,21 +136,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(12, 0), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_264po"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("space:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1kice"]
@@ -188,6 +187,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgdp2"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.235294, 0.756863, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rysoc"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 5
@@ -206,6 +217,8 @@ font_size = 20
 font_color = Color(0.235294, 0.756863, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssvqc"]
+content_margin_left = 15.0
+content_margin_right = 15.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 5
 border_width_top = 5
@@ -774,6 +787,25 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ir15t")
 icon = ExtResource("12_trtic")
 expand_icon = true
 
+[node name="next_wave" type="Button" parent="ui"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -106.0
+offset_right = 242.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(154, 46)
+focus_mode = 0
+theme = ExtResource("11_ir15t")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xgdp2")
+text = "Next Wave"
+
 [node name="button_rotate" type="Timer" parent="ui"]
 
 [node name="stats_container" type="HBoxContainer" parent="ui"]
@@ -791,7 +823,19 @@ label_settings = SubResource("LabelSettings_ssvqc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="coins_num" type="Label" parent="ui/stats_container"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_ssvqc")
+text = "¢0"
+label_settings = SubResource("LabelSettings_264po")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="coins_panel" type="Panel" parent="ui/stats_container"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ssvqc")
@@ -817,14 +861,6 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("7_kvpfn")
 expand_mode = 1
-
-[node name="coins_num" type="Label" parent="ui/stats_container/coins_panel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-text = "¢0"
-label_settings = SubResource("LabelSettings_264po")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="frogs" type="CanvasLayer" parent="."]
 layer = -1
@@ -988,43 +1024,77 @@ position = Vector2(675, 333)
 
 [node name="enemies" type="Node2D" parent="."]
 
-[node name="enemy" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(1238, 319)
+[node name="spawn_points_node" type="Node2D" parent="."]
 
-[node name="enemy2" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(636, 695)
+[node name="point1" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(230, 338)
 
-[node name="enemy3" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(959, 681)
+[node name="point2" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(230, 193)
 
-[node name="enemy4" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(365, 726)
+[node name="point3" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(235, 39)
 
-[node name="enemy5" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(-118, 430)
+[node name="point4" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(235, 462)
 
-[node name="enemy6" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(-120, 167)
+[node name="point5" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(235, 595)
 
-[node name="enemy7" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(-114, -16)
+[node name="point6" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(1075, 338)
 
-[node name="enemy8" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(213, -78)
+[node name="point7" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(1075, 193)
 
-[node name="enemy9" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(538, -96)
+[node name="point8" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(1080, 39)
 
-[node name="enemy10" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(904, -86)
+[node name="point9" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(1080, 462)
 
-[node name="enemy11" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(1224, 9)
+[node name="point10" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(1080, 595)
 
-[node name="enemy12" parent="enemies" instance=ExtResource("8_gee14")]
-position = Vector2(-86, 712)
+[node name="point11" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(1012, 632)
+
+[node name="point12" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(858, 632)
+
+[node name="point13" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(670, 632)
+
+[node name="point14" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(512, 632)
+
+[node name="point15" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(336, 632)
+
+[node name="point17" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(1012, 42)
+
+[node name="point18" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(858, 42)
+
+[node name="point19" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(670, 42)
+
+[node name="point20" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(512, 42)
+
+[node name="point21" type="Marker2D" parent="spawn_points_node"]
+position = Vector2(336, 42)
+
+[node name="enemy_timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
 
 [connection signal="button_up" from="ui/fruit_panel/lab_stuff/mix_btn" to="ui" method="_on_mix_btn_button_up"]
 [connection signal="pressed" from="ui/fruit_panel/recipe_info/VBoxContainer/back_btn" to="ui" method="_on_back_btn_pressed"]
+[connection signal="mouse_entered" from="ui/next_wave" to="ui" method="_on_next_wave_mouse_entered"]
+[connection signal="mouse_exited" from="ui/next_wave" to="ui" method="_on_next_wave_mouse_exited"]
+[connection signal="pressed" from="ui/next_wave" to="." method="_on_next_wave_pressed"]
 [connection signal="timeout" from="ui/button_rotate" to="ui" method="_on_button_rotate_timeout"]
 [connection signal="timeout" from="frogs/NavigationRegion2D/bake_timer" to="." method="_on_bake_timer_timeout"]
+[connection signal="timeout" from="enemy_timer" to="." method="_on_enemy_timer_timeout"]

@@ -56,6 +56,15 @@ func _physics_process(_delta: float) -> void:
 		
 		if enemies_in_range.size() != 0:
 			for marker in bullet_spawners:
+				#target_enemy = randi_range(0, enemies_in_range.size()-1)
+				var shortest_dis = global_position.distance_to(enemies_in_range[0].global_position)
+				var target
+				for enemy in enemies_in_range:
+					var dist = global_position.distance_to(enemy.global_position)
+					if dist < shortest_dis:
+						shortest_dis = dist
+						target = enemy
+				target_enemy = enemies_in_range.find(target)
 				marker.rotation = (enemies_in_range[target_enemy].global_position - marker.global_position).angle()
 		
 		if follow_cursor and is_hidden == false:
@@ -112,6 +121,10 @@ func check_if_on_frog():
 			SoundManager.play_sound('frog_eat', randf_range(0.9, 1.1), 0)
 		else:
 			SoundManager.play_sound('frog_eat2', randf_range(0.9, 1.1), 0)
+		
+		if fruit_eaten != null:
+			data.add_fruit_to_inv.emit(fruit_eaten)
+		
 		fruit_eaten = data.item_seletecd
 		
 		fruit_eaten.fruit_count -= 1
@@ -139,8 +152,7 @@ func _on_shoot_timer_timeout() -> void:
 				spawner.rotation_degrees -= (fruit_eaten.bullet_spread * (fruit_eaten.bullets_shot+1))/2
 			for i in range(fruit_eaten.bullets_shot):
 				spawner.rotation_degrees += fruit_eaten.bullet_spread
-				data.spawn_bullet.emit(spawner.global_position, spawner.global_transform, fruit_eaten)
-				SoundManager.play_sound("shoot", randf_range(0.8, 1.2), -15)
+				data.spawn_bullet.emit(spawner.global_position, spawner.global_transform, fruit_eaten, frog_sprite.modulate)
 				mouth_open.show()
 				mouth_smile.hide()
 				

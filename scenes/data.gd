@@ -17,6 +17,11 @@ signal mixing_done
 signal update_tab_badge
 signal new_fruit_badge
 signal open_box
+signal dmg_num
+signal wave_beat
+signal next_wave
+signal exploasion
+signal spawn_puddle
 
 var holding_fruit:bool = false
 var flag_pos:Vector2 = Vector2.ZERO
@@ -29,13 +34,21 @@ var mix_fruit:Fruit
 var mixing:bool = false
 var mix_mode:String = "Mix"
 var is_opening_box:bool = false
+var next_wave_pressed:bool = false
 
-enum cheat_type {ALL_FRUIT, ONLY_BASE_FRUIT, NONE}
-var debug_type = cheat_type.ALL_FRUIT
+enum cheat_type {ALL_FRUIT, ONLY_BASE_FRUIT, NONE, DEFAULT}
+var debug_type = cheat_type.DEFAULT
 
-var coins:int = 1000
-var wave:int = 0
+var coins:int = 0
 var fruit_mixer_progress:int = 0
+
+var wave:int = 0
+var enemies_for_wave:int = 0
+var enemies_killed_this_round:int = 0
+var enemy_count:int = 0
+var money_to_spend:int = 3
+var money_left:int = 10
+var enemy_limit:int = 1000
 
 var fruits = [
 	load("res://scenes/fruits/fire_pepper.tres"),
@@ -64,50 +77,54 @@ var fruits = [
 	load('res://scenes/fruits/hyper_icecream.tres')
 ]
 
+@onready var enemies = [
+	{'wave_unlock':0, 'cost':1, 'preload':preload('res://scenes/enemies/enemy.tscn')},
+	{'wave_unlock':3, 'cost':3, 'preload':preload('res://scenes/enemies/enemy_big.tscn')},
+	{'wave_unlock':5, 'cost':5, 'preload':preload('res://scenes/enemies/enemy_dragon_fly.tscn')},
+	{'wave_unlock':10, 'cost':10, 'preload':preload('res://scenes/enemies/enemy_dragon_fly_big.tscn')},
+]
+
 var fruits_in_mixer: Array[Fruit] = []
 
 func find_fruit_level(fruit: Fruit) -> int:
 	if fruit.recipe_to_make == null:
 		return 1
-
-	var total_steps := 1
-
+	var total_steps :float= 1.1
 	for ingredient in fruit.recipe_to_make.fruits_needed:
 		total_steps += find_fruit_level(ingredient)
-	
 	fruit.level = total_steps
 	return total_steps
 
 func get_rand_fruit_weighted():
-	var list_of_weights = []
-	var largest_weight = 0
+	var calculated_weights = []
 	for fruit in fruits:
-		var weight = find_fruit_level(fruit)
-		if weight > largest_weight:
-			largest_weight = weight
-		list_of_weights.append(weight)
-	
-	for i in range(list_of_weights.size()):
-		list_of_weights[i] = (largest_weight + 1) - list_of_weights[i]
-	
-	return weighted_random(fruits, list_of_weights)
-	
-func weighted_random(items, weights):
-	var total := 0
-	for weight in weights:
-		total += weight
-		
-	var threshold := randf() * total
+		var level = find_fruit_level(fruit)
+		var weight = 1.0 / (level)
+		calculated_weights.append(weight)
 
-	var sum = 0;
+	return weighted_random(fruits, calculated_weights)
+
+############################################
+
+func weighted_random(items: Array, weights: Array):
+
+	var total_weight = 0.0
+	for weight in weights:
+		total_weight += weight
+
+	var rand = randf() * total_weight
+	var cumulative_weight = 0.0
+
 	for i in range(items.size()):
-		sum += weights[i];
-		if threshold < sum:
-			return items[i];
+		cumulative_weight += weights[i]
+		if rand < cumulative_weight:
+			return items[i]
+
+	return items[-1]
 
 func test_rand_weights():
 	var fruit_list = []
-	var tests:float = 100000
+	var tests:float = 10000
 	for i in range(tests):
 		var fruit = get_rand_fruit_weighted().name
 		var found = false
@@ -129,8 +146,8 @@ func most_fruit(a, b):
 	return false
 
 func _ready() -> void:
-	#test_rand_weights()
 	fruits.sort_custom(fruit_level_sort)
+	#test_rand_weights()
 
 func fruit_level_sort(a, b):
 	if find_fruit_level(a) < find_fruit_level(b):
@@ -139,3 +156,32 @@ func fruit_level_sort(a, b):
 
 #func _process(delta: float) -> void:
 	#pass
+
+func shop_for_wave():
+	money_left = money_to_spend
+	var enemy_list = []
+	while money_left > 0:
+		var attemt = enemies[randi_range(0, enemies.size()-1)]
+		if attemt.cost <= money_left and attemt.wave_unlock <= wave:
+			money_left -= attemt.cost
+			enemy_list.append(attemt)
+	enemies_killed_this_round = 0
+	enemies_for_wave = enemy_list.size()
+	enemy_count = enemies_for_wave
+	return enemy_list
+	
+func format_number_with_commas(number: int) -> String:
+	var num_str = str(number)
+	var formatted_str = ""
+	var length = num_str.length()
+	var first_group_len = length % 3
+
+	if first_group_len == 0:
+		first_group_len = 3
+
+	formatted_str += num_str.substr(0, first_group_len)
+
+	for i in range(first_group_len, length, 3):
+		formatted_str += "," + num_str.substr(i, 3)
+
+	return formatted_str

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bniaxnrapu0kd"]
+
+[ext_resource type="FontFile" uid="uid://ci1tr875gml4b" path="res://assets/DynaPuff/DynaPuff-Bold.ttf" id="1_oypja"]
+[ext_resource type="Script" uid="uid://gmicx8231h1o" path="res://scenes/dmg_num.gd" id="2_vw83w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vw83w"]
+font = ExtResource("1_oypja")
+font_size = 15
+font_color = Color(1, 0, 0, 1)
+outline_size = 15
+outline_color = Color(0.464844, 0, 0, 1)
+
+[node name="dmg_num" type="Label"]
+z_index = 100
+offset_right = 40.0
+offset_bottom = 23.0
+text = "-1"
+label_settings = SubResource("LabelSettings_vw83w")
+script = ExtResource("2_vw83w")

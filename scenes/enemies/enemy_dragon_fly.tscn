@@ -1,0 +1,273 @@
+[gd_scene load_steps=12 format=3 uid="uid://d0heynhhbucxu"]
+
+[ext_resource type="Script" uid="uid://o27bhj4tc3to" path="res://scenes/enemies/enemy.gd" id="1_8vt6q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7p1mj"]
+bg_color = Color(0.54, 0.54, 0.54, 0.878431)
+corner_radius_top_left = 2
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vt6q"]
+bg_color = Color(0.127029, 0.541176, 0.722656, 1)
+border_color = Color(0.265625, 0.17905, 0.0809326, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvcof"]
+bg_color = Color(0.0549316, 0.408894, 0.5625, 1)
+border_color = Color(0.265625, 0.17905, 0.0809326, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7p1mj"]
+radius = 24.1868
+
+[sub_resource type="Animation" id="Animation_md0e3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite/wings_bottom/wing_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite/wings_top/wing_left2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-7, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7p1mj"]
+resource_name = "fly"
+length = 0.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite/wings_bottom/wing_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 0), Vector2(10, 0), Vector2(6, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite/wings_top/wing_left2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-7, 0), Vector2(-9, 0), Vector2(-5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ra3w"]
+_data = {
+&"RESET": SubResource("Animation_md0e3"),
+&"fly": SubResource("Animation_7p1mj")
+}
+
+[sub_resource type="Animation" id="Animation_5uy6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4ra3w"]
+resource_name = "attack"
+length = 1.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c4w8v"]
+_data = {
+&"RESET": SubResource("Animation_5uy6h"),
+&"attack": SubResource("Animation_4ra3w")
+}
+
+[node name="enemy" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 2
+collision_mask = 10
+motion_mode = 1
+script = ExtResource("1_8vt6q")
+damage = 2
+health = 10
+coin_value = 3
+
+[node name="sprite" type="Node2D" parent="."]
+rotation = -3.14159
+
+[node name="wings_top" type="Node2D" parent="sprite"]
+position = Vector2(13, 0)
+
+[node name="wing_left2" type="Panel" parent="sprite/wings_top"]
+offset_left = -8.86095
+offset_right = 17.139
+offset_bottom = 15.0
+rotation = -1.5708
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7p1mj")
+
+[node name="wing_left4" type="Panel" parent="sprite/wings_top/wing_left2"]
+offset_left = -6.51598e-05
+offset_top = 18.0
+offset_right = 20.9999
+offset_bottom = 33.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7p1mj")
+
+[node name="wings_bottom" type="Node2D" parent="sprite"]
+position = Vector2(13, 0)
+
+[node name="wing_left" type="Panel" parent="sprite/wings_bottom"]
+offset_left = 9.88918
+offset_right = 35.8892
+offset_bottom = 15.0
+rotation = -4.71239
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7p1mj")
+metadata/_edit_use_anchors_ = true
+
+[node name="wing_left3" type="Panel" parent="sprite/wings_bottom/wing_left"]
+offset_left = 1.73808e-05
+offset_top = -18.0
+offset_right = 21.0
+offset_bottom = -3.0
+rotation = -6.28319
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7p1mj")
+
+[node name="body2" type="Panel" parent="sprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 47.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8vt6q")
+
+[node name="body" type="Panel" parent="sprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.5
+offset_top = -9.5
+offset_right = 9.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bvcof")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-13, 0)
+shape = SubResource("CircleShape2D_7p1mj")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+process_mode = 4
+simplify_path = true
+
+[node name="pathfind" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4ra3w")
+}
+autoplay = "fly"
+speed_scale = 3.0
+
+[node name="flag_detect" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flag_detect"]
+position = Vector2(-13, 0)
+shape = SubResource("CircleShape2D_7p1mj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="flag_detect"]
+libraries = {
+&"": SubResource("AnimationLibrary_c4w8v")
+}
+
+[connection signal="timeout" from="pathfind" to="." method="_on_pathfind_timeout"]
+[connection signal="area_entered" from="flag_detect" to="." method="_on_area_2d_area_entered"]

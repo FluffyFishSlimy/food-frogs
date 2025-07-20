@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Fruit" load_steps=4 format=3 uid="uid://dhm5276fxa6hj"]
+[gd_resource type="Resource" script_class="Fruit" load_steps=5 format=3 uid="uid://dhm5276fxa6hj"]
 
 [ext_resource type="Texture2D" uid="uid://sywbc308hiry" path="res://assets/fire_icon.png" id="1_aphq2"]
+[ext_resource type="PackedScene" uid="uid://kxhedlhel8d8" path="res://scenes/bullet.tscn" id="2_455gh"]
 [ext_resource type="Texture2D" uid="uid://dp1t48higgrbj" path="res://assets/fruits/hot_pepper.png" id="2_mj1oq"]
 [ext_resource type="Script" uid="uid://bie4uo18q168e" path="res://scenes/fruits/fruit.gd" id="3_455gh"]
 
@@ -10,14 +11,18 @@ name = "Fire Pepper"
 desc = "Shoots a big slow peircing fire ball"
 fruit_sprite = ExtResource("2_mj1oq")
 frog_color = Color(0.894118, 0.364706, 0.364706, 1)
+is_rainbow = false
+show_rainbow_outline = false
 belly_icon = ExtResource("1_aphq2")
 cost = 5
 has_been_discovered = false
 bullet_speed = 200
-bullet_damage = 2.0
+bullet_damage = 1.5
 attack_speed = 2.0
 bullet_peirce = true
-bullet_scale = 2.0
+bullet_scale = 1.5
 bullet_spread = 0.0
 bullets_shot = 1
+bounces = 0
+bullet_scene = Array[PackedScene]([ExtResource("2_455gh")])
 metadata/_custom_type_script = "uid://bie4uo18q168e"
