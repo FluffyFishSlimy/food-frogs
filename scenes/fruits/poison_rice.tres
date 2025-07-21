@@ -32,6 +32,7 @@ bullet_spread = 0.0
 bullets_shot = 1
 bounces = 0
 homing = false
+homing_speed = 600
 exploads = false
 leaves_puddles = true
 puddle_dmg = 1.0

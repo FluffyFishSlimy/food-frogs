@@ -161,7 +161,7 @@ collision_mask = 10
 motion_mode = 1
 script = ExtResource("1_8vt6q")
 damage = 2
-health = 10
+health = 15
 coin_value = 3
 
 [node name="sprite" type="Node2D" parent="."]
@@ -171,14 +171,15 @@ rotation = -3.14159
 position = Vector2(13, 0)
 
 [node name="wing_left2" type="Panel" parent="sprite/wings_top"]
-offset_left = -8.86095
-offset_right = 17.139
+offset_left = -7.0
+offset_right = 19.0
 offset_bottom = 15.0
 rotation = -1.5708
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7p1mj")
 
 [node name="wing_left4" type="Panel" parent="sprite/wings_top/wing_left2"]
+layout_mode = 0
 offset_left = -6.51598e-05
 offset_top = 18.0
 offset_right = 20.9999
@@ -190,8 +191,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7p1mj")
 position = Vector2(13, 0)
 
 [node name="wing_left" type="Panel" parent="sprite/wings_bottom"]
-offset_left = 9.88918
-offset_right = 35.8892
+offset_left = 8.0
+offset_right = 34.0
 offset_bottom = 15.0
 rotation = -4.71239
 mouse_filter = 2
@@ -199,6 +200,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7p1mj")
 metadata/_edit_use_anchors_ = true
 
 [node name="wing_left3" type="Panel" parent="sprite/wings_bottom/wing_left"]
+layout_mode = 0
 offset_left = 1.73808e-05
 offset_top = -18.0
 offset_right = 21.0

@@ -7,6 +7,7 @@ extends Control
 @onready var credits: Button = %credits
 @onready var credits_page: Panel = $credits_page
 @onready var back: Button = $credits_page/back
+@onready var settings_menu: Control = $settings_menu
 
 var wiggle_button_object = null
 var start_pressed = false
@@ -72,3 +73,6 @@ func _on_back_pressed() -> void:
 
 func _on_credits_pressed() -> void:
 	credits_page.show()
+
+func _on_settings_pressed() -> void:
+	settings_menu.open()

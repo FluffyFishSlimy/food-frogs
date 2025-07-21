@@ -25,6 +25,7 @@ func take_damage(dmg):
 		data.enemies_killed_this_round += 1
 		data.enemy_count -= 1
 		data.spawn_coin.emit(global_position, coin_value)
+		data.enemies_killed += 1
 		queue_free()
 
 func _physics_process(delta: float) -> void:

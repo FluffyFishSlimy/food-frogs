@@ -17,6 +17,7 @@ var enemy_body
 var homing_speed = 600
 
 func _ready() -> void:
+	data.bullets_shot += 1
 	SoundManager.play_sound("shoot", randf_range(0.8, 1.2), -15)
 	if homing:
 		animation_player.play("scale")

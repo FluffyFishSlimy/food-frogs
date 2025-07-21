@@ -60,7 +60,7 @@ func add_fruit(fruit, new):
 	path_2d.add_child(new_fruit)
 
 func check_if_hovered():
-	if hovering and data.mixing == false:
+	if hovering and data.mixing == false and data.item_seletecd.name != "Recycle":
 		add_fruit(data.item_seletecd, false)
 		data.fruits_in_mixer.append(data.item_seletecd)
 		data.mixer_updated.emit()
@@ -107,7 +107,7 @@ func lists_have_same_named_objects(list_a: Array, list_b: Array) -> bool:
 
 func _on_mouse_entered() -> void:
 	hovering = true
-	if data.holding_fruit and data.mixing == false:
+	if data.holding_fruit and data.mixing == false and data.item_seletecd.name != "Recycle":
 		var t = create_tween().set_trans(Tween.TRANS_CIRC)
 		t.tween_property(mixer_sprite_outline, "scale", Vector2(1, 1), 0.2)
 

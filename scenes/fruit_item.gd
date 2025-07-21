@@ -58,7 +58,7 @@ func _ready() -> void:
 		if override_fruit == null:
 			if fruit_type.level == -1:
 				fruit_type.level = data.find_fruit_level(fruit_type)
-			fruit_type.cost = int(pow(fruit_type.level, 1.5) * 20)
+			fruit_type.cost = int(pow(fruit_type.level, 1.5) * 10)
 		cost_price.text = "¢" + data.format_number_with_commas(fruit_type.cost)
 
 	disabled_cost_label.font_color = Color("#4b4b4b")
@@ -90,7 +90,7 @@ func show_badge(fruit):
 
 func update_mini_recipe():
 	recipe_discovered = data.item_inspect_selected.has_been_discovered
-	if recipe_discovered == false:
+	if recipe_discovered == false and fruit_type.has_been_discovered == false:
 		one_question_mark.show()
 		fruit_icon.hide()
 	else:
@@ -213,8 +213,11 @@ func button_released(button):
 				data.add_fruit_to_inv.emit(fruit_type)
 				
 			if is_big_display:
-				data.is_opening_box = true
-				data.open_box.emit()
+				if fruit_type.name == "Food Box":
+					data.is_opening_box = true
+					data.open_box.emit()
+				if fruit_type.name == "Recycle":
+					data.add_fruit_to_inv.emit(fruit_type)
 			
 			SoundManager.play_sound("buy", randf_range(0.8, 1.2), 0)
 			

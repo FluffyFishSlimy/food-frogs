@@ -50,7 +50,7 @@ bus = &"SFX"
 
 [node name="squeak2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_aa63w")
-max_polyphony = 2
+max_polyphony = 20
 bus = &"SFX"
 
 [node name="shoot" type="AudioStreamPlayer" parent="."]

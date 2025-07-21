@@ -13,6 +13,7 @@ var puddle_color = Color("#3af912")
 var homing_speed = 600
 
 func _ready() -> void:
+	data.bullets_shot += 1
 	SoundManager.play_sound("laser", randf_range(0.8, 1.2), -18)
 	modulate.a = 0.9
 	

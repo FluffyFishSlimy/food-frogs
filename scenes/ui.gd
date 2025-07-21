@@ -24,6 +24,11 @@ extends CanvasLayer
 @onready var next_wave: Button = $next_wave
 @onready var wave_num: Label = $stats_container/wave_num
 @onready var shop_item_container: GridContainer = $fruit_panel/shop/VBoxContainer/item_container
+@onready var settings_menu: Control = $settings_menu
+@onready var restart: Button = $loose_menu/Panel/restart
+@onready var main_menu: Button = $loose_menu/Panel/main_menu
+@onready var looose_animation_player: AnimationPlayer = $loose_menu/AnimationPlayer
+@onready var stats_label: Label = $loose_menu/Panel/stats
 
 @onready var fruit_item = preload("res://scenes/fruit_item.tscn")
 
@@ -257,12 +262,22 @@ func _physics_process(_delta: float) -> void:
 	coins_num.text = "¢" + data.format_number_with_commas(data.coins)
 	wave_num.text = "Wave " + str(data.wave+1)
 	
+	if data.health <= 0 and data.game_over == false:
+		data.game_over = true
+		get_tree().paused = true
+		looose_animation_player.play("open")
+		
+		stats_label.text = "Wave Died: " + str(data.wave+1) + "\nTotal Money: " + data.format_number_with_commas(data.total_money) + "\nEnemies killed: " + data.format_number_with_commas(data.enemies_killed) + "\nBullets Shot: " + data.format_number_with_commas(data.bullets_shot) + "\nDamage Done: " + data.format_number_with_commas(round(data.damage_done)) + "\nFrogs Fed: " + data.format_number_with_commas((data.frogs_fed))
+		
+	
 func add_button_animations():
 	var buttons = [
 		settings_button,
 		mix_btn,
 		back_btn,
-		next_wave
+		next_wave,
+		restart,
+		main_menu
 	]
 	for button in buttons:
 		button.pivot_offset = Vector2(button.size.x/2, button.size.y/2)
@@ -334,3 +349,85 @@ func _on_mix_btn_button_up() -> void:
 #
 #func _on_next_wave_mouse_exited() -> void:
 	#next_wave.modulate.a = 1
+
+
+func _on_settings_pressed() -> void:
+	settings_menu.open()
+
+func _on_main_menu_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	for fruit:Fruit in data.fruits:
+		fruit.fruit_count = 0
+		fruit.has_been_discovered = false
+	data.wave = 0
+	data.coins = 0
+	data.health = 100
+	data.mixing = false
+	data.holding_fruit = false
+	data.mouse_down = false
+	data.item_seletecd = null
+	data.item_inspect_selected = null
+	data.tab_selected = 'Fruits'
+	data.mix_fruit = null
+	data.mixing = false
+	data.mix_mode = "Mix"
+	data.is_opening_box = false
+	data.next_wave_pressed = false
+	data.fruit_mixer_progress = 0
+	
+	data.fruits_in_mixer = []
+	
+	data.enemies_for_wave = 0
+	data.enemies_killed_this_round = 0
+	data.enemy_count = 0
+	data.money_to_spend = 5
+	data.money_left = 10
+	
+	data.enemies_killed = 0
+	data.damage_done = 0
+	data.bullets_shot = 0
+	data.total_money = 0
+	data.frogs_fed = 0
+	
+	data.game_over = false
+
+func _on_restart_pressed() -> void:
+	get_tree().paused = false
+	looose_animation_player.play_backwards("open")
+	
+	for fruit:Fruit in data.fruits:
+		fruit.fruit_count = 0
+		fruit.has_been_discovered = false
+	data.wave = 0
+	data.coins = 0
+	data.health = 100
+	data.mixing = false
+	data.holding_fruit = false
+	data.mouse_down = false
+	data.item_seletecd = null
+	data.item_inspect_selected = null
+	data.tab_selected = 'Fruits'
+	data.mix_fruit = null
+	data.mixing = false
+	data.mix_mode = "Mix"
+	data.is_opening_box = false
+	data.next_wave_pressed = false
+	data.fruit_mixer_progress = 0
+	
+	data.fruits_in_mixer = []
+	
+	data.enemies_for_wave = 0
+	data.enemies_killed_this_round = 0
+	data.enemy_count = 0
+	data.money_to_spend = 5
+	data.money_left = 10
+	
+	data.enemies_killed = 0
+	data.damage_done = 0
+	data.bullets_shot = 0
+	data.total_money = 0
+	data.frogs_fed = 0
+	
+	data.game_over = false
+	get_tree().reload_current_scene()

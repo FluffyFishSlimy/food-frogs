@@ -24,14 +24,27 @@ func _ready() -> void:
 	data.dmg_num.connect(spawn_dmg_num)
 	data.exploasion.connect(exploasion)
 	data.spawn_puddle.connect(spawn_puddle)
+	data.settings_opened.connect(settings_opened)
+	data.settings_closed.connect(settings_closed)
+	data.tut_done.connect(start_game)
 	data.start_game.emit()
 	
 	for point in spawn_points_node.get_children():
 		spawn_points.append(point)
 	
+	
+func start_game():
 	wave_enemy_list = data.shop_for_wave()
 	
+func settings_opened():
+	get_tree().paused = true
+
+func settings_closed():
+	if data.game_over == false:
+		get_tree().paused = false
+	
 func spawn_dmg_num(pos, dmg):
+	data.damage_done += dmg
 	var num = dmg_num_scene.instantiate()
 	num.text = "-" + str(dmg)
 	num.position = pos

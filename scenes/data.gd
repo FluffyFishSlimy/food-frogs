@@ -22,6 +22,9 @@ signal wave_beat
 signal next_wave
 signal exploasion
 signal spawn_puddle
+signal settings_closed
+signal settings_opened
+signal tut_done
 
 var holding_fruit:bool = false
 var flag_pos:Vector2 = Vector2.ZERO
@@ -35,6 +38,8 @@ var mixing:bool = false
 var mix_mode:String = "Mix"
 var is_opening_box:bool = false
 var next_wave_pressed:bool = false
+var game_over:bool = false
+var done_tut:bool = false
 
 enum cheat_type {ALL_FRUIT, ONLY_BASE_FRUIT, NONE, DEFAULT}
 var debug_type = cheat_type.DEFAULT
@@ -46,9 +51,15 @@ var wave:int = 0
 var enemies_for_wave:int = 0
 var enemies_killed_this_round:int = 0
 var enemy_count:int = 0
-var money_to_spend:int = 3
+var money_to_spend:int = 5
 var money_left:int = 10
 var enemy_limit:int = 1000
+
+var enemies_killed:int = 0
+var damage_done:float = 0
+var bullets_shot:int = 0
+var total_money:int = 0
+var frogs_fed:int = 0
 
 var fruits = [
 	load("res://scenes/fruits/fire_pepper.tres"),
@@ -79,9 +90,9 @@ var fruits = [
 
 @onready var enemies = [
 	{'wave_unlock':0, 'cost':1, 'preload':preload('res://scenes/enemies/enemy.tscn')},
-	{'wave_unlock':3, 'cost':3, 'preload':preload('res://scenes/enemies/enemy_big.tscn')},
-	{'wave_unlock':5, 'cost':5, 'preload':preload('res://scenes/enemies/enemy_dragon_fly.tscn')},
-	{'wave_unlock':10, 'cost':10, 'preload':preload('res://scenes/enemies/enemy_dragon_fly_big.tscn')},
+	{'wave_unlock':5, 'cost':3, 'preload':preload('res://scenes/enemies/enemy_big.tscn')},
+	{'wave_unlock':10, 'cost':5, 'preload':preload('res://scenes/enemies/enemy_dragon_fly.tscn')},
+	{'wave_unlock':15, 'cost':10, 'preload':preload('res://scenes/enemies/enemy_dragon_fly_big.tscn')},
 ]
 
 var fruits_in_mixer: Array[Fruit] = []

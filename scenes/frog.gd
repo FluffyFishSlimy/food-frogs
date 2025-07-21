@@ -144,6 +144,11 @@ func check_if_on_frog():
 		frog_sprite.modulate = fruit_eaten.frog_color
 		fruit_belly_icon.texture = fruit_eaten.belly_icon
 		shoot_timer.start(fruit_eaten.attack_speed)
+		
+		if fruit_eaten.name == "Recycle":
+			fruit_eaten = null
+		else:
+			data.frogs_fed += 1
 
 func _on_shoot_timer_timeout() -> void:
 	if shooting and enemies_in_range.is_empty() == false and fruit_eaten != null:

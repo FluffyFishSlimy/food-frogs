@@ -155,7 +155,7 @@ motion_mode = 1
 script = ExtResource("1_nnck1")
 speed = 20
 damage = 2
-health = 5
+health = 8
 coin_value = 2
 
 [node name="wing_left" type="Panel" parent="."]

@@ -163,7 +163,7 @@ motion_mode = 1
 script = ExtResource("1_oqssr")
 speed = 15
 damage = 3
-health = 20
+health = 30
 coin_value = 5
 
 [node name="sprite" type="Node2D" parent="."]
